@@ -871,7 +871,7 @@
               .then((response) => response.json())
               .then(async (res) => {
                   // Extrai título e artista da resposta da API
-                  const current = { title: currentStation.name, artist: currentStation.description };
+                  const current = normalizeTitle(res);
 
                   // Só atualiza se a música for diferente
                   const title = current.title;
