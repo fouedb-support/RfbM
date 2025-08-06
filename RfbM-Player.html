@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en" class="ua-Edge no-touch">
+<head>
+	<title>Radio fouedb Music</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/favicon.ico" />
+	<meta http-equiv="X-UA-Compatible" content="IE=8,9,edge" />
+	<meta name="description" content="Radio fouedb Music Webplayer" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="https://player.live365.com/js/jquery.jplayer292ed.min.js" title="jquery.jplayer292.swf" id="jpjs"></script>
+	<script>page=0;lang_text={};Chrome=138;iPadOS=0;cfg_id="";</script>
+	<script src="https://player.live365.com/js/site.4.5.72.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" />
+	<link rel="stylesheet" href="https://player.live365.com/skin/base.css?4.5.72" />
+	<script src="https://player.live365.com/js/modernizr-custom.js"></script>
+
+	<meta property="og:title" content="Radio fouedb Music" />
+	<meta property="og:image" content="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" />
+	<meta property="og:description" content="Web player" />
+	<meta property="og:type" content="music.radio_station" />
+	<meta property="og:url" content="https://player.live365.com/a82574?l=" />
+    
+	<script>function minadw() {return 985}</script>
+<style>
+.header img { margin-top: -14px; max-height:52px }
+body.page,
+body.page .container::before { background-color: #e0e0e0 }
+
+html, body {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+   width: 100%;
+}
+
+.titlecolor { 
+   color: #FE5000;
+   font-weight: bold;
+   font-size: clamp(1rem, 2.5vw, 2rem);
+   text-shadow: 
+         1px 1px 0 black, 
+         -1px -1px 0 black, 
+         1px -1px 0 black, 
+         -1px 1px 0 black,
+         2px 2px 0 white, 
+         -2px -2px 0 white, 
+         2px -2px 0 white, 
+         -2px 2px 0 white;
+}
+
+#container {
+   position: relative;
+   text-align: center;
+   margin:0;
+   min-width: 100%;
+   height: 100%;    
+}
+
+.playerbg {
+   position: absolute;
+   top:0px; left:0px;
+   width: 100%;  
+   height: 100%;  
+   z-index: 0;
+   background-image: url(playerbg-default.jpg);
+   background-position: center center;
+   background-size: cover;
+   overflow: hidden;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Pour centrer le contenu verticalement */
+    align-items: center;     /* Pour centrer le contenu horizontalement */
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0,0,0,.5);
+    border: 20px solid #FE5000;
+    z-index: 1;   
+    width: 100%; 
+    height: 100%;
+    text-shadow: 0 0 3px #000, 0 0 2px #000;
+}
+
+.player-content {
+	padding: 138px 10px 28px 3px;
+	float: center;
+	width: 86%;
+	position: relative;
+}
+
+.album-art {
+	float: center;
+	margin: -35px 12px -30px 0px;
+}
+
+.album-art img {
+	width: 120px;
+	height: 120px;
+	border-radius: 10px;
+	box-shadow: 0 0 5px #444;
+        opacity: 0.9;	
+}
+
+.artist {        
+	font-size: clamp(0.8rem, 1.8vw, 1.4rem);
+        text-align: center;
+	margin-top: 13px;
+        margin-right: 36px;
+        width: 100%;
+	height:86px;
+	font-weight: bold;
+        text-shadow: 
+         1px 1px 0 black, 
+         -1px -1px 0 black, 
+         1px -1px 0 black, 
+         -1px 1px 0 black;
+}
+
+.song-info {
+	float: center;
+	margin-bottom: 10px;
+	margin-top: -1px;
+	margin-right:-86px;
+	width:76%;
+	height:86px;
+	line-height: 1em;
+	overflow:hidden;
+	font-size: clamp(0.8rem, 1.5vw, 1rem);
+        font-weight: bold;
+        text-align: center;
+}
+
+.song {
+	font-size: 28px;
+	line-height: 1em;
+	font-weight: bold;
+	margin-top: -2px;
+	margin-bottom:.2em;
+        text-shadow: 
+         1px 1px 0 black, 
+         -1px -1px 0 black, 
+         1px -1px 0 black, 
+         -1px 1px 0 black;
+}
+
+.banner {
+	position: relative;
+        margin: 0px 0px 0px 0px;
+	float: left;
+	width:748px;
+	height:90px;
+	overflow:hidden;
+}
+
+.lower-content {
+	position: relative;
+	margin: -160px 8px 8px -128px;
+	height:190px;
+	clear:both;
+}   
+
+</style>
+
+	<script src='https://player.live365.com/js/viblast/viblast.0.0.62.js'></script>
+
+</head>
+<body class="skin-base">
+	<svg aria-hidden="true" style="display:none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<defs>
+			<symbol id="icon-twitter" viewBox="0 0 30 30" width="22" height="22">
+				<path d="M26.37,26l-8.795-12.822l0.015,0.012L25.52,4h-2.65l-6.46,7.48L11.28,4H4.33l8.211, 11.971L12.54,15.97L3.88,26h2.65 l7.182-8.322L19.42,26H26.37z M10.23,6l12.34,18h-2.1L8.12,6H10.23z"/></symbol>
+			<symbol id="icon-facebook" viewBox="0 0 512 1024" width="22" height="22">
+				<path class="path1" d="M380.8 195.2h131.2v-195.2h-155.2c-187.2 8-225.6 113.6-228.8 224v0 97.6h-128v190.4h128v512h192v-512h158.4l30.4-190.4h-188.8v-59.2c0-36.8 25.6-67.2 60.8-67.2z"/></symbol>
+			<symbol id="icon-bluesky" viewBox="0 0 68 57" width="24" height="24">
+				<path fill="#0085ff" d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z"/></symbol>
+	</defs></svg>
+
+	<div id="blurdiv"></div>
+	<div id="container">
+		<div id="jpdivmp3" class="jp-jplayer"></div>
+		<div id="jpdivm4a" class="jp-jplayer"></div>
+		<div id="jw1" class="jp-jplayer"></div>
+		<div class="playerbg themebg" style=""></div>
+		<div class="player">
+
+			<div class="header titlecolor" style="background-color:rgba(0,0,0, .5)"><span class="head_title" style=""><a href="https://radiofouedbmusic.weebly.com" target="_blank" title="Open Website"><img class="logo" alt="logo" src="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" style="max-width:100%" /></a><span id="title">Radio fouedb Music</span></span>
+			</div>
+
+			<div id="videoad">
+				<div id="vmsg">Your station will play momentarily. <span id="vremain"></span></div><div id="vplay"></div><div id="videoad_v"></div><div id="jpdivm4v" class="jp-jplayer"></div>
+			</div>
+
+			<div id="selector" class="themebg col" style="">
+				<div class="themebg2">
+					<table cellspacing="0">
+						<tr style="font-size:19px"></tr>
+					</table>
+				</div>
+			</div>
+
+			<div id="help" class="last-played">
+				<i class="close">&#x2715;</i>
+				<div class="help-inner">
+					<h2 class="titlecolor" id="helptitle">title</h2>
+					<p id="helpdescr">&quot;Radio fouedb Music&quot; Broadcasts the best songs and instrumental music, 24/24 hours and 7/7 days. Non-stop Music : Enjoy.</p>
+					<div id="privacy"></div>
+				</div>
+			</div>
+
+			<div id="last-played" class="last-played">
+				<i class="close">&#x2715;</i>
+				<div id="songhist"></div>
+			</div>
+
+			<div class="player-content">
+								<div class="album-art">
+					<img class="songimg" src="https://player.live365.com/configs/images/noalbum-white.png" />
+				</div>
+
+				<ul class="jp-controls">
+					<li><div class="jp-playx iconskin" id="playbtn" onclick="play()" title="Play/Stop"></div></li>
+				</ul>
+				<div class="jp-no-solution">
+					<div>Trouble Listening?</div>
+					<div><a id="directm3u" href="#" onclick="stop()">Download this m3u playlist to listen.</a></div>
+					Or just wait a little longer. The station may be offline.
+					<span id="nosoladd"></span>
+				</div>
+
+				<div class="song-info notrated">
+					<h1 id="song" class="song titlecolor">
+						<noscript>This player definitely requires JavaScript</noscript>
+					</h1>
+					<h2 id="artist" class="artist"></h2>
+					<!--
+					<div class="rating titlecolor">
+						<i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2606;</i>
+					</div> -->
+				</div>
+				
+				<section class="controls cf">
+					<div class="song-controls">
+						<i class="icon buy-open">&#xe73d;<span class="tooltip">Buy Now</span></i>
+						<a href="#" id="lyrics" target="_blank"><i class="icon lyrics-open">&#x266b;<span class="tooltip">Lyrics</span></i></a>
+						<i class="icon share-open">&#xe73c;<span class="tooltip">Share</span></i>
+						<i class="icon help-open">&#x2753;<span class="tooltip">Help &amp; Privacy</span></i>
+						<div id="vu" class="off"></div>
+					</div>
+					<div class="player-controls">
+						<span id="current-time">Stopped</span>
+						<i class="fa icon last-played-open">&#xe005;<span class="tooltip">Last Played</span></i>
+						<i class="fa icon mute" id="muteb"><span id="mutetxt">&#x1F50A;</span><span class="tooltip">Mute</span></i>
+						<div id="volumediv">
+							<div id="volume-fill"></div>
+							<div id="volumeknob"></div>
+							<div id="volume-control" class="iconskin"></div>
+						</div>
+					</div>
+				</section>
+				<div id="debug">
+	         </div>
+			</div>
+
+			<div class="side-content">
+				<div id="synchrobox300"></div>
+				<div class="banner-right"></div>
+			</div>
+
+			<div class="lower-content">
+				<div id="synchrobox728"></div>
+				<div class="banner"></div>
+
+				<div class="lower-side">
+					<div id="linkbuttons">
+						<!--<a class="facebook" href="http://facebook.com/"><i>&#xf30c;</i></a>
+						<a class="twitter" href="http://twitter.com/"><i>&#xf309;</i></a>-->
+						<a class="lb_fb" target="_blank" href="https://www.facebook.com/RadiofouedbMusic.RfbM.FouedBahri" title="Facebook"></a><a class="lb_twitter" target="w_twitter" href="https://x.com/Radio_fb_Music" title="X/Twitter"></a><a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a>					</div>
+					<div class="powered-by"><a target="_blank" href="https://live365.com/"><img src="https://player.live365.com/configs/images/live365-poweredby.png" width="80" height="35 "/></a><span id="pwlast"></span> <span class="privacylink"> &bull; <a href="#" class="priv-open">Privacy</a></span></div>
+				</div>
+			</div>
+
+			<div class="share-overlay overlay">
+				<i class="close">&#x2715;</i>
+				<section class="overlay-content">
+					<h2 class="song titlecolor">Share This On</h2>
+					<div class="shricons">
+							<a id="afacebook" class="button facebook" href="javascript:void(window.open('https://www.facebook.com/sharer/sharer.php?s=100&p[title]=Radio+fouedb+Music&u=https%3A%2F%2Fplayer.live365.com%2Fa82574%3Fl%3D&p[images][0]=https%3A%2F%2Fplayer.live365.com%2Fhttps%3A%2F%2Fmedia.live365.com%2Fdownload%2F6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif','sharer','toolbar=0,status=0,width=548,height=325'))" tabindex="-1" title="Facebook"><svg class="icon_s icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a>
+							<a id="atwitter" class="twitter" href="https://x.com/intent/tweet?url=https%3A%2F%2Fplayer.live365.com%2Fa82574%3Fl%3D&text=Listening+to+Radio+fouedb+Music" target="_blank" title="X/Twitter"><svg class="icon_s icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a>
+							<a id="abluesky" class="twitter" href="https://bsky.app/intent/compose?text=Listening+to+Radio+fouedb+Music+https%3A%2F%2Fplayer.live365.com%2Fa82574%3Fl%3D" target="_blank" title="Bluesky"><svg class="icon_s icon-bluesky"><use xlink:href="#icon-bluesky"></use></svg></a></div>
+				</section>
+			</div>
+			<div class="buy-overlay overlay">
+				<i class="close">&#x2715;</i>
+				<section class="overlay-content">
+					<h2 class="song titlecolor">Buy This Song</h2>
+					<ul class="buy-icons">
+						<li><a id="buyamz" class="amazon iconskin" href="https://amazon.com/" target="_blank"><img src="https://player.live365.com/skin/spacer.gif" /></a></li>
+						<li><a id="buyapp" class="itunes iconskin" href="https://music.apple.com/" target="_blank"><img src="https://player.live365.com/skin/ajax-loader-white.gif" /></a></li>
+					</ul>
+				</section>
+			</div>
+			<div class="extra-overlay overlay">
+				<i class="close">&#x2715;</i>
+				<section class="overlay-content" id="extra-ovl"></section>
+			</div>
+		</div>
+	</div>
+    
+<!-- Google tag (gtag.js) custom code-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8GJ6SY3VC"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+function gtag_send() {
+	gtag('js', new Date());
+	gtag('set', 'page_location', 'https://player.live365.com/_live365');
+	gtag('set', 'page_title', title(""));
+	gtag('config', 'G-Q8GJ6SY3VC');
+	if('') {
+		gtag('config', '', {'groups': 'T2'});
+	}
+	console.log('# gtag_send');
+}
+cfg_cc_title = "Radio fouedb Music";
+help_custom = "live365";
+</script>
+
+<script>
+gtag_send();
+</script>
+
+<script src="https://cdn.adswizz.com/adswizz/js/SynchroClient2.js"></script>
+
+<script>
+needs_hist = false; // Désactiver l'historique
+numhistory = 0; // Ne pas conserver l'historique des métadonnées
+live365 = "a82574"; 
+autoplay = 1;
+playvolume = 1;
+spotxID = 0;
+cc = 1, config = "_"; 
+cfg_synchrobox300 = "", cfg_synchrobox728 = "", cfg_synchrobox640 = "";
+bufferGiveupCount = 18;
+var prefer, version = '4.5.61';
+mini = 0;
+canHLS = 1;
+basepath = '';
+srvtime = "";  
+buynowurl = ''; 
+cfg_itunes_at = "";
+defaultalbumpic = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/noalbum-white.png"; 
+cfg_albumbackground = 1;
+cfg_albumdisplay = 1;
+cfg_staticalbumpic = 0;
+cfg_NotASongKeywords = "".split(",");
+cfg_HideNotASong = 1;
+lang = "en";
+cfg_albumapi = "";
+cfg_pickrandomstream = 0;
+cfg_emq = "";
+cfg_polledMetaDelay = 1; // Actualisation rapide des métadonnées
+cfg_maxsessiontime = 86400; // 24 heures en secondes
+cfg_neverAutoplay = 0;
+cfg_yp_mount = "";
+adswizzserver = "";
+is_AIS = 1;
+listenerid = "";
+nohlsmeta = 0;
+mobile = 0;
+if(window.CCPA == undefined) CCPA = "";
+cfg_statictrack = "";
+client_IP = '';
+GEO_country = '';
+debug_ = 0;
+cfg_historyURL = '';
+prefer = '';
+eventsrc = '';
+streams = [{"format":"ice","host":"streaming.live365.com","id":"a82574","https":1,"port":443}]; 
+master = 0;
+masterids = [];
+
+</script>
+
+<script>
+try {
+	var d = document.documentElement;
+	var framepad_w = window.outerWidth - d.clientWidth;
+	var framepad_h = window.outerHeight - d.clientHeight;
+	if(d.clientWidth < 100%	|| d.clientHeight < 100%) {
+		console.log("#Resized");
+		window.resizeTo(100%+framepad_w, 100%+framepad_h);
+	}
+} catch(e){}
+</script>
+</body>
+</html>
