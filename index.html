@@ -59,25 +59,26 @@ body {
 .titlecolor { 
         color: #FE5000;
         font-weight: bold;
-        font-size: clamp(1rem, 2.5vw, 2rem);
+        font-size: clamp(0.9rem, 1.1vw, 1rem);
         text-shadow: 
-            1px 1px 0 black, 
-            -1px -1px 0 black, 
-            1px -1px 0 black, 
-            -1px 1px 0 black,
-            2px 2px 0 white, 
-            -2px -2px 0 white, 
-            2px -2px 0 white, 
-            -2px 2px 0 white;
+             1px 1px 0 black, 
+             -1px -1px 0 black, 
+             1px -1px 0 black, 
+             -1px 1px 0 black,
+             2px 2px 0 white, 
+             -2px -2px 0 white, 
+             2px -2px 0 white, 
+             -2px 2px 0 white;
 }
 
 #container {
         position: relative;
         text-align: center;
-        margin: 0 auto;  
-        max-width: 100%;
-        min-width: 100%;  
+        margin: 0px auto;  
+        max-width: 78%;
+        min-width: 50%;  
         padding: 0rem;
+        
 }
 
 .playerbg {
@@ -105,26 +106,29 @@ body {
         box-shadow: inset 0 0 20px rgba(0,0,0,.5);
         border: clamp(1.5rem, 2vw, 1.8rem) solid #FE5000;
         z-index: 1;    
-        min-height: 100vh;
+        min-height: 80vh;
         text-shadow: 0 0 3px #000, 0 0 2px #000;
+        padding: 138px 10px 28px 3px;
 }
 
 .player-content {
-	padding: 138px 10px 28px 3px;
-	float: center;
-	width: 95%;
-	position: relative;
+	    padding: 138px 10px 28px 3px;
+        margin: -100px 0px -120px 0px;
+	    float: center;
+	    width: 95%;
+	    position: relative;
 }
 
 .header {
         background: rgba(0, 0, 0, 0.4);
         border-radius: 10px;
-        bottom: -10px;
+        bottom: 65px;
         padding: 1rem 2rem;
-        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        font-size: clamp(1.2rem, 1.5vw, 1.4rem);
         font-weight: bold;
-        text-align: left
-        width: 100%;
+        width: 100%
+        text-align: center;
+       
 }
 
 .side-content {
@@ -134,87 +138,90 @@ body {
 }
 
 .album-art {
-	float: center;
-	margin: -35px 12px -30px 0px;
+	    float: center;
+	    margin: -35px 12px -30px 0px;
         margin-bottom: 1rem;
 }
 
 .album-art img {
-	width: 20vw;
+	    width: 20vw;
         max-width: 150px;
-	height: auto;
-	border-radius: 10px;
-	box-shadow: 0 0 5px #444;
+	    height: auto;
+	    border-radius: 10px;
+	    box-shadow: 0 0 5px #444;
         opacity: 0.9;	
 }
 
 .artist {        
-	font-size: clamp(1rem, 2vw, 1.5rem);
+	    font-size: clamp(1.2rem, 1.5vw, 1.4rem);
         text-align: center;
-	margin-top: 13px;
+	    margin-top: 13px;
         margin-right: 36px;
         width: 100%;
-	height: 50%;
-	font-weight: bold;
+	    height: 50%;
+	    font-weight: bold;
         text-shadow: 
-           1px 1px 0 black, 
-          -1px -1px 0 black, 
-          1px -1px 0 black, 
-          -1px 1px 0 black;
+             1px 1px 0 black, 
+            -1px -1px 0 black, 
+            1px -1px 0 black, 
+            -1px 1px 0 black;
 }
 
 .song-info {
-	float: center;
-	margin-bottom: 10px;
-	margin-top: 1rem;
-	margin-right: -86px;
-	width: 69%;
-	height: 50%;
-	line-height: 1.4;
-	overflow: hidden;
-	font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+	    float: center;
+	    margin-bottom: 10px;
+	    margin-top: 1rem;
+	    margin-right: -86px;
+	    width: 69%;
+	    height: 50%;
+	    line-height: 1.4;
+	    overflow: hidden;
+	    font-size: clamp(0.6rem, 1.2vw, 0.9rem);
         font-weight: bold;
         text-align: center;
 }
 
 .song {
-        font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
         line-height: 1em;
         font-weight: bold;
         margin-top: -2px;
         margin-bottom: 0.2em;
         text-shadow: 
-           1px 1px 0 black, 
-           -1px -1px 0 black, 
-           1px -1px 0 black, 
-           -1px 1px 0 black;
+             1px 1px 0 black, 
+             -1px -1px 0 black, 
+             1px -1px 0 black, 
+             -1px 1px 0 black;
 }
   
 .banner {
-	position: relative;
+	    position: relative;
         margin: 0px 0px 0px 0px;
-	float: left;
-	width: 748px;
-	height: 90px;
-	overflow:hidden;
+	    float: left;
+	    width: 748px;
+	    height: 90px;
+	    overflow:hidden;
 }
 
 .lower-content {
         float: left;
-	position: relative;
-	margin: -160px 8px 8px -128px;
-	height: 39vw;
-	clear: both;
+	    position: relative;
+	    margin: -130px 240px 85px -128px;
+	    height: 339vw;
+        width: 339vw;
+	    clear: both;
+    
+    
 }
 
 #current-time {
         color: #75a310;
         font-weight: bold;
-	font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+	    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
         max-font-size: 1rem;
-	padding: 10px;	
-	line-height: 1rem;
-	padding-right: 0.5rem;    
+	    padding: 10px;	
+	    line-height: 1rem;
+	    padding-right: 0.5rem;    
         display: inline-block;
         min-width: 5rem;
         transition: none;
