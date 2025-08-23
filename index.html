@@ -78,6 +78,12 @@ body {
         100% { background-position: 0% 50%; }
 }
 
+@keyframes waveMotion {
+        0%   { transform: scale(1) translateY(0%); }
+        50%  { transform: scale(1.02) translateY(-1%); }
+        100% { transform: scale(1) translateY(0%); }
+}
+
 #container {
         position: relative;
         text-align: center;
@@ -102,6 +108,8 @@ body {
         background-repeat: no-repeat;
         background-position: top center;
         z-index: -1;
+        animation: waveMotion 1s ease-in-out infinite;
+        will-change: transform;
 }
 
 .player {
@@ -183,7 +191,7 @@ body {
         height: auto;
         border-radius: 10px;
         box-shadow: 0 0 5px #444;
-        opacity: 0.9;	
+        opacity: 0.9;
 }
 
 .artist {        
