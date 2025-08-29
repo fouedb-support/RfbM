@@ -19,8 +19,7 @@
 	<meta property="og:image" content="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" />
 	<meta property="og:description" content="Web player" />
 	<meta property="og:type" content="music.radio_station" />
-	<meta property="og:url" content="https://player.live365.com/a82574?l=" />
-    
+	<meta property="og:url" content="https://player.live365.com/a82574?l=" />    
 	<script>function minadw() {return 985}</script>
     
 <style>
@@ -165,19 +164,20 @@ body {
         box-shadow: inset 0 0 20px rgba(0,0,0,.5);
         text-shadow: 0 0 3px #000, 0 0 2px #000;
         color: white;
-        border: clamp(1.7rem, 1.9vw, 1.8rem) solid #FE5000;
+        border: clamp(1.6rem, 1.8vw, 1.7rem) solid #FE5000;
+        border-radius: 10px;
         border-image-slice: 1;
         border-image: conic-gradient(
            from 0deg,
             #FE5000,
             red,
             orangered,) 1;
-  animation: borderShift 1s linear infinite, glowPulse 0s ease-in-out infinite;
+        animation: borderShift 1s linear infinite, glowPulse 0s ease-in-out infinite;
 }
         
-.player-content {	    
+.player-content {
         margin: -100px 22px -257px 0px;
-        width: 98%;
+        width: 96%;
         position: relative;
 }
 
@@ -188,34 +188,36 @@ body {
         padding: 6rem 2rem;
         font-size: clamp(1.2rem, 1.5vw, 1.4rem);
         font-weight: bold;
-        width: 98.4%;
+        width: 96%;
         text-align: left;
        
 }
 
 .side-content {
         flex: 1 1 300px;
-        padding: 0rem;
+        padding: 2rem;
         width: 100%;
 }
 
 .album-art {
         float: center;
-        margin: -35px 12px -30px 0px;
-        margin-bottom: 1rem;
+        margin: -40px 12px -30px 0px;
+        margin-bottom: 3rem;
+        padding: 0rem;
 }
 
 .album-art img {
-        width: 20vw;
+        width: 150px;
         max-width: 150px;
         height: auto;
         border-radius: 10px;
         box-shadow: 0 0 5px #444;
         opacity: 0.9;
+        margin: -13px 0px -30px 0px;
 }
 
 .artist {        
-        font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+        font-size: clamp(0.9rem, 1.2vw, 1rem);
         text-align: center;
         margin-top: 13px;
         margin-right: 36px;
@@ -231,14 +233,14 @@ body {
 
 .song-info {
         float: center;
-        margin-bottom: 0px;
-        margin-top: 1rem;
+        margin-bottom: 10px;
+        margin-top: -1rem;
         margin-right: -86px;
-        width: 68%;
+        width: 69%;
         height: 50%;
-        line-height: 1.4;
+        line-height: 1.2;
         overflow: hidden;
-        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
+        font-size: clamp(0.7rem, 1.2vw, 0.9rem);
         font-weight: bold;
         text-align: center;
 }
@@ -260,7 +262,7 @@ body {
         position: relative;
         margin: -29px -30px 100px 0px;
         float: left;
-        width: 90vw;
+        width: 95%;
         height: 0px;
         overflow:hidden;
         padding: 55px 0px 0px 0px;
@@ -270,18 +272,18 @@ body {
        position: relative;
        text-align: right;
        float: center;
-       margin: 0px -120px -20px 60px;
+       margin: 0px -200px -20px 60px;
        padding: -55px 0px 0px 0px;
-       width: 90vw;
+       width: 98%;
 	
 }
 
 .lower-content {
         float: left;
         position: relative;
-        margin: -30px 186px 271px -51px;
+        margin: -30px 287px 271px -125px;
         height: 39vw;
-        width: 90vw;
+        width: 98%;
         clear: both;    
 }
 
@@ -297,7 +299,8 @@ body {
         min-width: 5rem;
         transition: none;
         visibility: visible;  
-}     
+} 
+
 </style>
 
 	<script src='https://player.live365.com/js/viblast/viblast.0.0.62.js'></script>
@@ -361,7 +364,7 @@ body {
 				</ul>
 				<div class="jp-no-solution">
 					<div>Trouble Listening?</div>
-					<div><a id="directm3u" href="#" onclick="stop()">Download this m3u playlist to listen.</a></div>
+					<div><a id="directm3u" href="https://player.live365.com/a82574?l#" onclick="stop()">Download this m3u playlist to listen.</a></div>
 					Or just wait a little longer. The station may be offline.
 					<span id="nosoladd"></span>
 				</div>
@@ -380,7 +383,7 @@ body {
 				<section class="controls cf">
 					<div class="song-controls">
 						<i class="icon buy-open">&#xe73d;<span class="tooltip">Buy Now</span></i>
-						<a href="#" id="lyrics" target="_blank"><i class="icon lyrics-open">&#x266b;<span class="tooltip">Lyrics</span></i></a>
+						<a href="https://player.live365.com/a82574?l#" id="lyrics" target="_blank"><i class="icon lyrics-open">&#x266b;<span class="tooltip">Lyrics</span></i></a>
 						<i class="icon share-open">&#xe73c;<span class="tooltip">Share</span></i>
 						<i class="icon help-open">&#x2753;<span class="tooltip">Help &amp; Privacy</span></i>
 						<div id="vu" class="off"></div>
@@ -397,7 +400,8 @@ body {
 					</div>
 				</section>
 				<div id="debug">
-	         </div>
+									</div>
+
 			</div>
 
 			<div class="side-content">
@@ -408,15 +412,16 @@ body {
 			<div class="lower-content">
 				<div id="synchrobox728"></div>
 				<div class="banner"></div>
-                
+
 				<div class="lower-side">
 					<div id="linkbuttons">
 						<!--<a class="facebook" href="http://facebook.com/"><i>&#xf30c;</i></a>
 						<a class="twitter" href="http://twitter.com/"><i>&#xf309;</i></a>-->
 						<a class="lb_fb" target="_blank" href="https://www.facebook.com/RadiofouedbMusic.RfbM.FouedBahri" title="Facebook"></a><a class="lb_twitter" target="w_twitter" href="https://x.com/Radio_fb_Music" title="X/Twitter"></a><a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a>					</div>
-					<div class="powered-by"><a target="_blank" href="https://live365.com/"><img src="https://player.live365.com/configs/images/live365-poweredby.png" width="80" height="35"/></a><span id="pwlast"></span> <span class="privacylink"> &bull; <a href="#" class="priv-open">Privacy</a></span></div>
+					<div class="powered-by"><a target="_blank" href="https://live365.com/"><img src="https://player.live365.com/configs/images/live365-poweredby.png" width="80" height="35 "/></a><span id="pwlast"></span> <span class="privacylink"> &bull; <a href="https://player.live365.com/a82574?l#" class="priv-open">Privacy</a></span></div>
 				</div>
 			</div>
+
 			<div class="share-overlay overlay">
 				<i class="close">&#x2715;</i>
 				<section class="overlay-content">
@@ -441,9 +446,9 @@ body {
 				<i class="close">&#x2715;</i>
 				<section class="overlay-content" id="extra-ovl"></section>
 			</div>
+
 		</div>
 	</div>
-    
 <!-- Google tag (gtag.js) custom code-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8GJ6SY3VC"></script>
 <script>
@@ -462,7 +467,6 @@ function gtag_send() {
 cfg_cc_title = "Radio fouedb Music";
 help_custom = "live365";
 </script>
-
 <script>
 gtag_send();
 </script>
@@ -470,6 +474,7 @@ gtag_send();
 <script src="https://cdn.adswizz.com/adswizz/js/SynchroClient2.js"></script>
 
 <script>
+
 needs_hist = false;
 numhistory = 0;
 live365 = "a82574"; 
@@ -479,7 +484,7 @@ spotxID = 0;
 cc = 1, config = "_"; 
 cfg_synchrobox300 = "", cfg_synchrobox728 = "", cfg_synchrobox640 = "";
 bufferGiveupCount = 18;
-var prefer, version = '4.5.61';
+var prefer, version = '4.5.72';
 mini = 0;
 canHLS = 1;
 basepath = '';
@@ -516,6 +521,10 @@ eventsrc = '';
 streams = [{"format":"ice","host":"streaming.live365.com","id":"a82574","https":1,"port":443}]; 
 master = 0;
 masterids = [];
+
+if(!window.setStream) {
+	$(".song,.fill_song").html("Player script error. Adblock?");
+}
 
 </script>
 
