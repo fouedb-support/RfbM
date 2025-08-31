@@ -14,14 +14,13 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" />
 	<link rel="stylesheet" href="https://player.live365.com/skin/base.css?4.5.72" />
 	<script src="https://player.live365.com/js/modernizr-custom.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 	<meta property="og:title" content="Radio fouedb Music" />
 	<meta property="og:image" content="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" />
 	<meta property="og:description" content="Web player" />
 	<meta property="og:type" content="music.radio_station" />
 	<meta property="og:url" content="https://player.live365.com/a82574?l=" />    
-	<script>function minadw() {return 985}</script>
-    
+	<script>function minadw() {return 985}</script>    
 <style>
 .header img { margin-top: -14px; max-height:52px }
 body.page,
@@ -140,7 +139,7 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url(https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/blankart.jpg);
+        background-image: url(https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/rfbm-background_37.png);
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: top center;
@@ -189,8 +188,7 @@ body {
         font-size: clamp(1.2rem, 1.5vw, 1.4rem);
         font-weight: bold;
         width: 96%;
-        text-align: left;
-       
+        text-align: left;       
 }
 
 .side-content {
@@ -299,12 +297,90 @@ body {
         min-width: 5rem;
         transition: none;
         visibility: visible;  
-} 
+}
 
+.fas {
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+}
+
+.icon-wrapper {
+        position: relative;
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+        margin: 0 6px;
+}
+
+.icon-circle {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+}
+
+.icon-circle i {
+        font-size: 15px;
+        pointer-events: none;
+        transition: color 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-circle {
+        background-color: rgba(128, 128, 128, 0.22); /* gris transparent */
+}
+
+.label {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.75em;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 10;
+}
+
+.icon-wrapper:hover .label {
+        opacity: 1;
+}
+
+.last-played-open {
+	    cursor: pointer;
+        display: inline-block;
+}
+
+.last-played {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70vw;
+        height: 35vw;
+        background: url(https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/rfbm-background_50.png);   
+        border-radius: 4px;
+        z-index: 90;
+        box-shadow: 2px 2px 22px #000, 0 0 12px #000;
+        color: #fff;
+        padding: 20px; 
+}
+
+.last-played.show {
+        opacity: 1;
+        visibility: visible;
+}
 </style>
-
 	<script src='https://player.live365.com/js/viblast/viblast.0.0.62.js'></script>
-
 </head>
 <body class="skin-base">
 	<svg aria-hidden="true" style="display:none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -316,7 +392,6 @@ body {
 			<symbol id="icon-bluesky" viewBox="0 0 68 57" width="24" height="24">
 				<path fill="#0085ff" d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z"/></symbol>
 	</defs></svg>
-
 	<div id="blurdiv"></div>
 	<div id="container">
 		<div id="jpdivmp3" class="jp-jplayer"></div>
@@ -324,14 +399,11 @@ body {
 		<div id="jw1" class="jp-jplayer"></div>
 		<div class="playerbg themebg" style=""></div>
 		<div class="player">
-
 			<div class="header titlecolor" style="background-color:rgba(0,0,0, .5)"><span class="head_title" style=""><a href="https://radiofouedbmusic.weebly.com" target="_blank" title="Open Website"><img class="logo" alt="logo" src="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" style="max-width:100%" /></a><span id="title">Radio fouedb Music</span></span>
 			</div>
-
 			<div id="videoad">
 				<div id="vmsg">Your station will play momentarily. <span id="vremain"></span></div><div id="vplay"></div><div id="videoad_v"></div><div id="jpdivm4v" class="jp-jplayer"></div>
 			</div>
-
 			<div id="selector" class="themebg col" style="">
 				<div class="themebg2">
 					<table cellspacing="0">
@@ -339,7 +411,6 @@ body {
 					</table>
 				</div>
 			</div>
-
 			<div id="help" class="last-played">
 				<i class="close">&#x2715;</i>
 				<div class="help-inner">
@@ -348,27 +419,23 @@ body {
 					<div id="privacy"></div>
 				</div>
 			</div>
-
 			<div id="last-played" class="last-played">
 				<i class="close">&#x2715;</i>
 				<div id="songhist"></div>
 			</div>
-
 			<div class="player-content">
-								<div class="album-art">
+				<div class="album-art">
 					<img class="songimg" src="https://player.live365.com/configs/images/noalbum-white.png" />
 				</div>
-
 				<ul class="jp-controls">
-					<li><div class="jp-playx iconskin" id="playbtn" onclick="play()" title="Play/Stop"></div></li>
+				<li><div class="jp-playx iconskin" id="playbtn" onclick="play()" title="Play/Stop"></div></li>
 				</ul>
 				<div class="jp-no-solution">
 					<div>Trouble Listening?</div>
-					<div><a id="directm3u" href="https://player.live365.com/a82574?l#" onclick="stop()">Download this m3u playlist to listen.</a></div>
+					<div><a id="directm3u" href="#" onclick="stop()">Download this m3u playlist to listen.</a>                   </div>
 					Or just wait a little longer. The station may be offline.
 					<span id="nosoladd"></span>
 				</div>
-
 				<div class="song-info notrated">
 					<h1 id="song" class="song titlecolor">
 						<noscript>This player definitely requires JavaScript</noscript>
@@ -376,22 +443,24 @@ body {
 					<h2 id="artist" class="artist"></h2>
 					<!--
 					<div class="rating titlecolor">
-						<i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2606;</i>
+					<i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2605;</i> <i>&#x2606;</i>
 					</div> -->
-				</div>
-				
-				<section class="controls cf">
+				</div>                                
+				<section class="controls cf">    
 					<div class="song-controls">
-						<i class="icon buy-open">&#xe73d;<span class="tooltip">Buy Now</span></i>
-						<a href="https://player.live365.com/a82574?l#" id="lyrics" target="_blank"><i class="icon lyrics-open">&#x266b;<span class="tooltip">Lyrics</span></i></a>
-						<i class="icon share-open">&#xe73c;<span class="tooltip">Share</span></i>
-						<i class="icon help-open">&#x2753;<span class="tooltip">Help &amp; Privacy</span></i>
-						<div id="vu" class="off"></div>
-					</div>
-					<div class="player-controls">
-						<span id="current-time">Stopped</span>
-						<i class="fa icon last-played-open">&#xe005;<span class="tooltip">Last Played</span></i>
-						<i class="fa icon mute" id="muteb"><span id="mutetxt">&#x1F50A;</span><span class="tooltip">Mute</span></i>
+         <a href="https://amazon.com" class="icon-wrapper" target="_blank"><div class="icon-circle"><i class="fas fa-cart-shopping"></i></div><span class="label">Buy Now</span></a>                    						
+		<a href="#" id="lyrics" target="_blank"><i class="icon lyrics-open">&#x266b;<span class="tooltip">Lyrics</span></i></a>                                                
+        <a href="https://www.tiktok.com/@radiofouedbmusic" class="icon-wrapper" target="_blank">
+  <div class="icon-circle"><i class="fas fa-share-nodes"></i></div><span class="label">Share</span></a>
+		<i class="icon help-open">&#x2753;<span class="tooltip">Help &amp; Privacy</span></i>
+			<div id="vu" class="off"></div>
+			</div>
+			 <div class="player-controls">
+				<span id="current-time">Stopped</span>
+			<div class="fa icon last-played-open">&#xe005;<span class="tooltip">Last Played</span>
+            </div>
+			<i class="fa icon mute" id="muteb"><span id="mutetxt">&#x1F50A;</span>
+            <span class="tooltip">Mute</span></i>
 						<div id="volumediv">
 							<div id="volume-fill"></div>
 							<div id="volumeknob"></div>
@@ -400,28 +469,24 @@ body {
 					</div>
 				</section>
 				<div id="debug">
-									</div>
-
 			</div>
-
+			</div>
 			<div class="side-content">
 				<div id="synchrobox300"></div>
 				<div class="banner-right"></div>
 			</div>
-
 			<div class="lower-content">
 				<div id="synchrobox728"></div>
 				<div class="banner"></div>
-
 				<div class="lower-side">
 					<div id="linkbuttons">
 						<!--<a class="facebook" href="http://facebook.com/"><i>&#xf30c;</i></a>
 						<a class="twitter" href="http://twitter.com/"><i>&#xf309;</i></a>-->
-						<a class="lb_fb" target="_blank" href="https://www.facebook.com/RadiofouedbMusic.RfbM.FouedBahri" title="Facebook"></a><a class="lb_twitter" target="w_twitter" href="https://x.com/Radio_fb_Music" title="X/Twitter"></a><a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a>					</div>
-					<div class="powered-by"><a target="_blank" href="https://live365.com/"><img src="https://player.live365.com/configs/images/live365-poweredby.png" width="80" height="35 "/></a><span id="pwlast"></span> <span class="privacylink"> &bull; <a href="https://player.live365.com/a82574?l#" class="priv-open">Privacy</a></span></div>
+						<a class="lb_fb" target="_blank" href="https://www.facebook.com/RadiofouedbMusic.RfbM.FouedBahri" title="Facebook"></a><a class="lb_twitter" target="w_twitter" href="https://x.com/Radio_fb_Music" title="X/Twitter"></a><a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a>					
+                        </div>
+					<div class="powered-by"><a target="_blank" href="https://live365.com/"><img src="https://player.live365.com/configs/images/live365-poweredby.png" width="80" height="35 "/></a><span id="pwlast"></span> <span class="privacylink"> &bull; <a href="https://live365.com/station/Radio-fouedb-Music-a82574" class="priv-open">Privacy</a></span></div>
 				</div>
 			</div>
-
 			<div class="share-overlay overlay">
 				<i class="close">&#x2715;</i>
 				<section class="overlay-content">
@@ -448,7 +513,7 @@ body {
 			</div>
 
 		</div>
-	</div>
+	</div>    
 <!-- Google tag (gtag.js) custom code-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8GJ6SY3VC"></script>
 <script>
@@ -470,11 +535,8 @@ help_custom = "live365";
 <script>
 gtag_send();
 </script>
-
 <script src="https://cdn.adswizz.com/adswizz/js/SynchroClient2.js"></script>
-
 <script>
-
 needs_hist = false;
 numhistory = 0;
 live365 = "a82574"; 
@@ -525,9 +587,7 @@ masterids = [];
 if(!window.setStream) {
 	$(".song,.fill_song").html("Player script error. Adblock?");
 }
-
 </script>
-
 <script>
 try {
 	var d = document.documentElement;
@@ -539,7 +599,6 @@ try {
 	}
 } catch(e){}
 </script>
-
 <script>
 (function() {
   let start = Date.now();
@@ -560,6 +619,15 @@ try {
 
   update();
 })();
+</script>
+<script>
+document.querySelector('.last-played-open').addEventListener('click', function () {
+  document.getElementById('last-played').style.display = 'block';
+});
+
+document.querySelector('#last-played .close').addEventListener('click', function () {
+  document.getElementById('last-played').style.display = 'none';
+});
 </script>
 </body>
 </html>
