@@ -127,9 +127,13 @@ body {
         position: relative;
         max-width: 100%;
         min-width: 100%;
-        height: 100vh;
+        height: 100%;
         overflow: hidden;
         text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 0em;
         margin: 0 auto;
 }
 
@@ -156,6 +160,7 @@ body {
         justify-content: center;
         align-items: center;
         overflow: hidden;
+        width: 100%;
         height: 100%;
         padding: 198px 10px 28px 3px;
         box-sizing: border-box;
@@ -185,7 +190,7 @@ body {
         bottom: 0px;
         right: 0px;
         padding: 6rem 2rem;
-        font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+        font-size: clamp(1.1rem, 1.7vw, 1.4rem);
         font-weight: bold;
         width: 96%;
         text-align: left;       
@@ -215,7 +220,7 @@ body {
 }
 
 .artist {        
-        font-size: clamp(0.9rem, 1.2vw, 1rem);
+        font-size: clamp(0.9rem, 1.3vw, 1.1rem);
         text-align: center;
         margin-top: 13px;
         margin-right: 36px;
@@ -238,13 +243,12 @@ body {
         height: 50%;
         line-height: 1.2;
         overflow: hidden;
-        font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+        font-size: clamp(0.6rem, 1vw, 0.8rem);
         font-weight: bold;
         text-align: center;
 }
 
-.song {
-        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
+.song {        
         line-height: 1em;
         font-weight: bold;
         margin-top: 0px;
@@ -288,7 +292,7 @@ body {
 #current-time {
         color: #75a310;
         font-weight: bold;
-        font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+        font-size: clamp(0.9rem, 1.2vw, 1rem);
         max-font-size: 1rem;
         padding: 10px;	
         line-height: 1rem;
@@ -313,8 +317,8 @@ body {
 }
 
 .icon-circle {
-        width: 32px;
-        height: 32px;
+        width: 2em;
+        height: 2em;
         border-radius: 50%;
         background-color: transparent;
         display: flex;
@@ -324,7 +328,7 @@ body {
 }
 
 .icon-circle i {
-        font-size: 15px;
+        font-size: 1em;
         pointer-events: none;
         transition: color 0.3s ease;
 }
@@ -406,7 +410,7 @@ body {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        filter: grayscale(100%) opacity(79%);
+        filter: grayscale(100%) opacity(67%);
         transition: filter 0.3s ease;
         cursor: pointer;
 }
