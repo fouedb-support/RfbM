@@ -372,7 +372,7 @@ body {
         z-index: 90;
         box-shadow: 2px 2px 22px #000, 0 0 12px #000;
         color: #fff;
-        padding: 20px; 
+        padding: 20px;
 }
 
 .last-played.show {
@@ -380,21 +380,39 @@ body {
         visibility: visible;
 }
 
+.icon-wrapper.share-open {
+        cursor: pointer;
+}
+
 .share-links {
-  margin-top: 20px;
+        margin-top: 20px;
 }
 
 .share-links a {
-  display: block;
-  color: #1db954;
-  font-size: 16px;
-  margin: 8px 0;
-  text-decoration: none;
+        display: block;
+        color: #1db954;
+        font-size: 16px;
+        margin: 8px 0;
+        text-decoration: none;
 }
 
 .share-links a:hover {
-  text-decoration: underline;
-  color: #fff;
+        text-decoration: underline;
+        color: #fff;
+}
+
+.lb_tiktok {
+        display: inline-block;   
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: grayscale(100%) opacity(82%);
+        transition: filter 0.3s ease;
+        cursor: pointer;
+}
+
+.lb_tiktok:hover {
+        filter: none;
 }
 </style>
 	<script src='https://player.live365.com/js/viblast/viblast.0.0.62.js'></script>
@@ -509,9 +527,13 @@ body {
 				<div class="banner"></div>
 				<div class="lower-side">
 					<div id="linkbuttons">
+                    <a class="lb_tiktok" target="_blank" href="https://www.tiktok.com/@radiofouedbmusic" title="TikTok">
+  <img src="https://raw.githubusercontent.com/edent/SuperTinyIcons/master/images/svg/tiktok.svg" alt="TikTok"; style="width:27px; height:27px; border-radius:50%; padding:2.3px;"></a>     
 						<!--<a class="facebook" href="http://facebook.com/"><i>&#xf30c;</i></a>
 						<a class="twitter" href="http://twitter.com/"><i>&#xf309;</i></a>-->
-						<a class="lb_fb" target="_blank" href="https://www.facebook.com/RadiofouedbMusic.RfbM.FouedBahri" title="Facebook"></a><a class="lb_twitter" target="w_twitter" href="https://x.com/Radio_fb_Music" title="X/Twitter"></a><a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a>					
+						<a class="lb_fb" target="_blank" href="https://www.facebook.com/RadiofouedbMusic.RfbM.FouedBahri" title="Facebook"></a>
+                        <a class="lb_twitter" target="w_twitter" href="https://x.com/Radio_fb_Music" title="X/Twitter"></a>
+                        <a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a>					
                         </div>
 					<div class="powered-by"><a target="_blank" href="https://live365.com/"><img src="https://player.live365.com/configs/images/live365-poweredby.png" width="80" height="35 "/></a><span id="pwlast"></span> <span class="privacylink"> &bull; 
     <a href="https://live365.com/station/Radio-fouedb-Music-a82574" class="priv-open" 
