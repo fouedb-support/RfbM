@@ -115,11 +115,11 @@ body {
 }
 
 @keyframes glowPulse {
-     0%, 100% {
-         border-width: clamp(1.6rem, 1.8vw, 1.7rem);
+   0%, 100% {
+        border-width: clamp(1.6rem, 1.8vw, 1.7rem);
   }
-          50% {
-         border-width: clamp(1.9rem, 2.1vw, 2rem);
+        50% {
+        border-width: clamp(1.9rem, 2.1vw, 2rem);
   }
 }
 
@@ -359,7 +359,7 @@ body {
 }
 
 .last-played-open {
-	    cursor: pointer;
+	cursor: pointer;
         display: inline-block;
 }
 
@@ -371,7 +371,7 @@ body {
         transform: translateX(-50%);
         width: 70vw;
         height: 35vw;
-        background: url(https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/rfbm-background_50.png);   
+        background: url(https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/rfbm-background_50.png); 
         border-radius: 4px;
         z-index: 90;
         box-shadow: 2px 2px 22px #000, 0 0 12px #000;
@@ -406,17 +406,49 @@ body {
 }
 
 .lb_tiktok {
-        display: inline-block;   
+        position: relative;
+        display: inline-block; 
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        filter: grayscale(100%) opacity(67%);
-        transition: filter 0.3s ease;
+        filter: grayscale(100%) opacity(81%);
+        transition: filter 0.3s ease;  
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        overflow: hidden;
         cursor: pointer;
 }
 
-.lb_tiktok:hover {
-        filter: none;
+.lb_tiktok img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        padding: 2.3px;
+        border-radius: 50%;
+}
+
+.lb_tiktok img.default {
+        opacity: 1;  
+        margin: -2px 0 0 -2px;  
+}
+
+.lb_tiktok img.hover {
+        opacity: 0;  
+        margin: 0px 0 0 -3px;    
+}
+
+.lb_tiktok:hover img.default {
+        opacity: 0;
+        transform: translateY(0px);
+}
+
+.lb_tiktok:hover img.hover {
+        opacity: 1;
+        transform: translateY(-2px);
 }
 </style>
 	<script src='https://player.live365.com/js/viblast/viblast.0.0.62.js'></script>
@@ -471,7 +503,7 @@ body {
 				</ul>
 				<div class="jp-no-solution">
 					<div>Trouble Listening?</div>
-					<div><a id="directm3u" href="#" onclick="stop()">Download this m3u playlist to listen.</a>                   </div>
+					<div><a id="directm3u" href="#" onclick="stop()">Download this m3u playlist to listen.</a></div>
 					Or just wait a little longer. The station may be offline.
 					<span id="nosoladd"></span>
 				</div>
@@ -532,12 +564,14 @@ body {
 				<div class="lower-side">
 					<div id="linkbuttons">
                     <a class="lb_tiktok" target="_blank" href="https://www.tiktok.com/@radiofouedbmusic" title="TikTok">
-  <img src="https://raw.githubusercontent.com/edent/SuperTinyIcons/master/images/svg/tiktok.svg" alt="TikTok"; style="width:27px; height:27px; border-radius:50%; padding:2.3px;"></a>     
+    <img class="default" src="https://raw.githubusercontent.com/edent/SuperTinyIcons/master/images/svg/tiktok.svg" alt="TikTok gris">
+    <img class="hover" src="https://raw.githubusercontent.com/fouedb-support/RfbM/refs/heads/main/TikTok.svg" alt="TikTok coloré">
+  </a>     
 						<!--<a class="facebook" href="http://facebook.com/"><i>&#xf30c;</i></a>
 						<a class="twitter" href="http://twitter.com/"><i>&#xf309;</i></a>-->
 						<a class="lb_fb" target="_blank" href="https://www.facebook.com/RadiofouedbMusic.RfbM.FouedBahri" title="Facebook"></a>
                         <a class="lb_twitter" target="w_twitter" href="https://x.com/Radio_fb_Music" title="X/Twitter"></a>
-                        <a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a>					
+                        <a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a>	
                         </div>
 					<div class="powered-by"><a target="_blank" href="https://live365.com/"><img src="https://player.live365.com/configs/images/live365-poweredby.png" width="80" height="35 "/></a><span id="pwlast"></span> <span class="privacylink"> &bull; 
     <a href="https://live365.com/station/Radio-fouedb-Music-a82574" class="priv-open" 
