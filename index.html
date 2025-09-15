@@ -28,6 +28,22 @@
 .header img { margin-top: -14px; max-height:52px }
 body.page,
 body.page .container::before { background-color: #e0e0e0 }
+
+.icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: rgba(128, 128, 128, 0.2);
+        color: #FE5000;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        cursor: pointer;
+        vertical-align: middle;
+        line-height: 0;
+        flex-shrink: 0;
+}
 </style>
 
 	<script src='https://player.live365.com/js/viblast/viblast.0.0.62.js'></script>
@@ -130,28 +146,38 @@ body.page .container::before { background-color: #e0e0e0 }
 	</div> -->
 	</div>
 				                
-	<section class="controls cf">
-        <div class="song-controls">
-                <i class="icon buy-open" data-icon="buy"><span class="tooltip">Buy Now</span></i>
-                <a href="#" id="lyrics" target="_blank">
-                <i class="icon lyrics-open" data-icon="lyrics"><span class="tooltip">Lyrics</span></i></a>
-                <i class="icon share-open" data-icon="share"><span class="tooltip">Share</span></i>
-                <i class="icon help-open" data-icon="help"><span class="tooltip">Help &amp; Privacy</span></i>
-        <div id="vu" class="off"></div>
-        </div>
-
-        <div class="player-controls">
-                <span id="current-time">Stopped</span>
-                <i class="icon last-played-open" data-icon="last"><span class="tooltip">Last Played</span></i>
-                <i class="icon mute fa-solid fa-volume-high" id="muteb" data-muted="false"><span class="tooltip">Mute</span></i>
-
-        <div id="volumediv">
-        <div id="volume-fill"></div>
-        <div id="volumeknob"></div>
-        <div id="volume-control" class="iconskin"></div>
-        </div>
-        </div>
-        </section>
+	<section class="controls cf"> 
+    <div class="song-controls">
+    
+    <a href="https://amazon.com" class="icon-wrapper" target="_blank">
+    <div class="icon-circle"><i class="fas fa-cart-shopping">
+    </i></div><span class="label">Buy Now</span></a>
+    
+    <a href="#" id="lyrics" class="icon-wrapper" target="_blank">
+    <div class="icon-circle"><i class="fas fa-music"></i>
+    </div><span class="label">Lyrics</span></a>
+    
+    <a class="icon-wrapper share-open"> 
+    <div class="icon-circle"><i class="fas fa-share-nodes"></i>
+    </div><span class="label">Share</span></a>
+    
+    <a class="icon-wrapper"><div class="icon-circle help-open"><i class="fas fa-question-circle"></i></div><span class="label">Contact &amp; Privacy</span></a>
+    
+    <div id="vu" class="off"></div>
+    
+    </div> 
+    <div class="player-controls">
+        
+    <span id="current-time">Stopped</span>
+    
+    <div class="icon-wrapper last-played-open fas fa-clock" data-icon="last"><span class="label">Last Played</span></div>
+    <div class="icon-wrapper mute fa-solid fa-volume-high" id="muteb" data-muted="false"><span class="label">Mute</span></div>
+ 
+    <div id="volumediv"> 
+    <div id="volume-fill"></div> 
+    <div id="volumeknob"></div> 
+    <div id="volume-control" class="iconskin"></div> </div> </div> 
+    </section>
                            
 	<div id="debug">
 	</div>
