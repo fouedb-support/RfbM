@@ -319,28 +319,6 @@ try {
 </script>
 
 <script>
-(function() {
-  let start = Date.now();
-  const timeDisplay = document.getElementById('current-time');
-
-  function pad(num) {
-    return String(num).padStart(2, '0');
-  }
-
-  function update() {
-    const elapsed = Math.floor((Date.now() - start) / 1000);
-    const hrs = Math.floor(elapsed / 3600);
-    const mins = Math.floor((elapsed % 3600) / 60);
-    const secs = elapsed % 60;
-    timeDisplay.textContent = `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
-    requestAnimationFrame(update);
-  }
-
-  update();
-})();
-</script>
-
-<script>
 const muteIcon = document.getElementById('muteb');
 
 muteIcon.addEventListener('click', () => {
