@@ -14,8 +14,8 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" />
 	<link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
 	<script src="https://player.live365.com/js/modernizr-custom.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+   
 	<meta property="og:title" content="Radio fouedb Music" />
 	<meta property="og:image" content="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" />
 	<meta property="og:description" content="Web player" />
@@ -54,10 +54,10 @@ body.page .container::before { background-color: #e0e0e0 }
 
 			<div align="center" class="header titlecolor" style="background-color:rgba(0,0,0, .5)"><span class="head_title" style=""><a href="https://radiofouedbmusic.weebly.com" target="_blank" title="Open Website"><img class="logo" alt="logo" src="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" style="max-width:100%" /></a><span id="title">Radio fouedb Music</span></span>
 			</div>
-                        
+                                    
             <div id="vu" class="off"></div>
             <div id="vu-again" class="off"></div>
-            
+       
             <div class="marquee-container">
                <svg width="100%" height="60" viewBox="0 0 1000 60" xmlns="http://www.w3.org/2000/svg">
                <defs>
@@ -382,6 +382,8 @@ updateClock();
 </script>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
 function toggleEqualizers(isPlaying) {
   const left = document.getElementById("vu");
   const right = document.getElementById("vu-again");
@@ -394,6 +396,8 @@ function toggleEqualizers(isPlaying) {
     right.classList.add("off");
   }
 }
+
+});
 </script>
 
 </body>
