@@ -12,17 +12,17 @@
 	<script>page=0;lang_text={};Chrome=138;iPadOS=0;cfg_id="";</script>
 	<script src="https://player.live365.com/js/site.4.5.72.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" />
-	<link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
+        <link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
 	<script src="https://player.live365.com/js/modernizr-custom.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-   
+    
 	<meta property="og:title" content="Radio fouedb Music" />
 	<meta property="og:image" content="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" />
 	<meta property="og:description" content="Web player" />
 	<meta property="og:type" content="music.radio_station" />
 	<meta property="og:url" content="https://player.live365.com/a82574?l=" />    
 	<script>function minadw() {return 985}</script>
-
+    
 <style>
 .header img { margin-top: -14px; max-height:52px }
 body.page,
@@ -54,7 +54,7 @@ body.page .container::before { background-color: #e0e0e0 }
 
 			<div align="center" class="header titlecolor" style="background-color:rgba(0,0,0, .5)"><span class="head_title" style=""><a href="https://radiofouedbmusic.weebly.com" target="_blank" title="Open Website"><img class="logo" alt="logo" src="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" style="max-width:100%" /></a><span id="title">Radio fouedb Music</span></span>
 			</div>
-                                    
+                        
             <div id="vu" class="off"></div>
             <div id="vu-again" class="off"></div>
        
@@ -82,7 +82,7 @@ body.page .container::before { background-color: #e0e0e0 }
             </div>
 
 			<div id="videoad">
-			<div id="vmsg">Your station will play momentarily. <span id="vremain"></span></div><div id="vplay"></div>                   <div id="videoad_v"></div><div id="jpdivm4v" class="jp-jplayer"></div>
+			<div id="vmsg">Your station will play momentarily. <span id="vremain"></span></div><div id="vplay"></div>                                 <div id="videoad_v"></div><div id="jpdivm4v" class="jp-jplayer"></div>
 			</div>
 
 			<div id="selector" class="themebg col" style="">
@@ -382,21 +382,36 @@ updateClock();
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-
 function toggleEqualizers(isPlaying) {
   const left = document.getElementById("vu");
   const right = document.getElementById("vu-again");
 
-  if (isPlaying) {
-    left.classList.remove("off");
-    right.classList.remove("off");
-  } else {
-    left.classList.add("off");
-    right.classList.add("off");
+  if (!left || !right) {
+    console.warn("Égaliseur manquant :", { left, right });
+    return;
   }
+
+  const baseURL = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/vu-gif-white.gif"; // remplace par ton vrai lien
+
+  if (isPlaying) {
+    const cacheBuster = Date.now(); // force rechargement
+    const gifURL = `${baseURL}?v=${cacheBuster}`;
+
+    left.style.backgroundImage = `url("${gifURL}")`;
+    right.style.backgroundImage = `url("${gifURL}")`;
+  } else {
+    // Supprimer complètement le background pour stopper le GIF
+    left.style.removeProperty("background-image");
+    right.style.removeProperty("background-image");
+  }
+
+  // Classe visuelle optionnelle
+  left.classList.toggle("off", !isPlaying);
+  right.classList.toggle("off", !isPlaying);
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  toggleEqualizers(true); // démarre les deux au chargement
 });
 </script>
 
