@@ -80,7 +80,13 @@ body.page .container::before { background-color: #e0e0e0 }
                </text>
                </svg>
             </div>
+                        
+            <!-- jPlayer -->
+            <div id="jquery_jplayer"></div>
 
+            <!-- Ton bouton Play/Stop -->
+                  <a href="javascript:;" class="jp-play-toggle play" title="Play"></a>
+                        
 			<div id="videoad">
 			<div id="vmsg">Your station will play momentarily. <span id="vremain"></span></div><div id="vplay"></div>                                 <div id="videoad_v"></div><div id="jpdivm4v" class="jp-jplayer"></div>
 			</div>
@@ -132,16 +138,16 @@ body.page .container::before { background-color: #e0e0e0 }
 			<div class="album-art">
 					<img class="songimg" src="https://player.live365.com/configs/images/noalbum-white.png" />
 			</div>
-
-				    <ul class="jp-controls">
+            
+				    <!--<ul class="jp-controls">
 					<li><div class="jp-playx iconskin" id="playbtn" onclick="play()" title="Play/Stop"></div></li>
-				</ul>
+				    </ul>
 			<div class="jp-no-solution">
 			<div>Trouble Listening?</div>
 			<div><a id="directm3u" href="#" onclick="stop()">Download this m3u playlist to listen.</a></div>
 					Or just wait a little longer. The station may be offline.
 					<span id="nosoladd"></span>
-			</div>
+			</div>-->
 
 			<div class="song-info notrated">
 					<h1 id="song" class="song titlecolor">
@@ -271,7 +277,7 @@ gtag_send();
 <script>
 needs_hist = true;
 live365 = "a82574";
-autoplay = 1;
+autoplay = 0;
 playvolume = 0.7;
 spotxID = 0;
 cc = 1, config = "_live365";
@@ -335,8 +341,8 @@ try {
   const actualH = window.innerHeight;
 
   if (actualW < minW || actualH < minH) {
-    console.warn("#Écran trop petit pour affichage optimal :", actualW + "x" + actualH);
-    // Optionnel : afficher un message ou adapter le layout
+    console.warn("#Screen too small for optimal display :", actualW + "x" + actualH);
+    // Optional: display a message or adapt the layout
     document.body.classList.add("layout-compact");
   } else {
     document.body.classList.remove("layout-compact");
@@ -364,13 +370,13 @@ document.addEventListener("click", function(e) {
 function updateClock() {
   const now = new Date();
 
-  // Affichage de l'heure
+  // Time display
   document.getElementById("time-display").textContent = now.toLocaleTimeString();
 
-  // Affichage de la date
+  // Date display
   document.getElementById("date-display").textContent = now.toLocaleDateString();
 
-  // Affichage du jour avec majuscule
+  // Display the day with capital letters
   const options = { weekday: 'long' };
   let day = now.toLocaleDateString('fr-FR', options); // Force le français
   day = day.charAt(0).toUpperCase() + day.slice(1);   // Majuscule sur la première lettre
@@ -382,36 +388,65 @@ updateClock();
 </script>
 
 <script>
-function toggleEqualizers(isPlaying) {
-  const left = document.getElementById("vu");
-  const right = document.getElementById("vu-again");
+$(document).ready(function() {
+    // Initializing jPlayer with autoplay
+    $("#jquery_jplayer").jPlayer({
+        ready: function() {
+            $(this).jPlayer("setMedia", {
+                mp3: "https://streaming.live365.com/a82574"
+            }).jPlayer("play"); // ✅ autoplay
+        },
+        supplied: "mp3"
+    });
 
-  if (!left || !right) {
-    console.warn("Égaliseur manquant :", { left, right });
-    return;
-  }
+    // Equalizer function
+    function toggleEqualizers(play) {
+        const left = document.getElementById("vu");
+        const right = document.getElementById("vu-again");
+        const baseURL = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/vu-gif-white.gif";
 
-  const baseURL = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/vu-gif-white.gif"; // remplace par ton vrai lien
+        if (play) {
+            const cacheBuster = Date.now();
+            const gifURL = `${baseURL}?v=${cacheBuster}`;
+            left.style.backgroundImage = `url("${gifURL}")`;
+            right.style.backgroundImage = `url("${gifURL}")`;
+        } else {
+            left.style.removeProperty("background-image");
+            right.style.removeProperty("background-image");
+        }
 
-  if (isPlaying) {
-    const cacheBuster = Date.now(); // force rechargement
-    const gifURL = `${baseURL}?v=${cacheBuster}`;
+        left.classList.toggle("off", !play);
+        right.classList.toggle("off", !play);
+    }
 
-    left.style.backgroundImage = `url("${gifURL}")`;
-    right.style.backgroundImage = `url("${gifURL}")`;
-  } else {
-    // Supprimer complètement le background pour stopper le GIF
-    left.style.removeProperty("background-image");
-    right.style.removeProperty("background-image");
-  }
+    // Play/Stop management on the jp-play-toggle button
+    let isPlaying = false;
+    $(".jp-play-toggle").on("click", function() {
+        if (!isPlaying) {
+            $("#jquery_jplayer").jPlayer("play");
+        } else {
+            $("#jquery_jplayer").jPlayer("pause");
+        }
+    });
 
-  // Classe visuelle optionnelle
-  left.classList.toggle("off", !isPlaying);
-  right.classList.toggle("off", !isPlaying);
-}
+    // Synchronization with jPlayer
+    $("#jquery_jplayer").on($.jPlayer.event.play, function() {
+        toggleEqualizers(true);
+        $(".jp-play-toggle")
+            .removeClass("play")
+            .addClass("stop")
+            .attr("title", "Stop"); // ✅ tooltip on hover
+        isPlaying = true;
+    });
 
-document.addEventListener("DOMContentLoaded", () => {
-  toggleEqualizers(true); // démarre les deux au chargement
+    $("#jquery_jplayer").on($.jPlayer.event.pause + " " + $.jPlayer.event.ended, function() {
+        toggleEqualizers(false);
+        $(".jp-play-toggle")
+            .removeClass("stop")
+            .addClass("play")
+            .attr("title", "Play"); // ✅ tooltip on hover
+        isPlaying = false;
+    });
 });
 </script>
 
