@@ -146,7 +146,7 @@ body.page .container::before { background-color: #e0e0e0 }
             <!-- jPlayer -->
             <div id="jquery_jplayer"></div>
 
-            <!-- Ton bouton Play/Stop -->
+            <!-- Play/Stop -->
                   <a href="javascript:;" class="jp-play-toggle play" title="Play"></a>
 
 			<div class="song-info notrated">
@@ -378,8 +378,8 @@ function updateClock() {
 
   // Display the day with capital letters
   const options = { weekday: 'long' };
-  let day = now.toLocaleDateString('fr-FR', options); // Force le français
-  day = day.charAt(0).toUpperCase() + day.slice(1);   // Majuscule sur la première lettre
+  let day = now.toLocaleDateString('fr-FR', options);
+  day = day.charAt(0).toUpperCase() + day.slice(1);
   document.getElementById("day-display").textContent = day;
 }
 
@@ -400,7 +400,7 @@ $(document).ready(function() {
         volume: 0.8 // volume initial (80%)
     });
 
-    // Fonction égaliseurs
+    // Equalizers fonction
     function toggleEqualizers(play) {
         const left = document.getElementById("vu");
         const right = document.getElementById("vu-again");
@@ -448,7 +448,7 @@ $(document).ready(function() {
         isPlaying = false;
     });
 
-    // --- 🔇 Bouton Mute ---
+    // --- 🔇 Mute Buttons ---
     let isMuted = false;
     $("#muteb").on("click", function() {
         if (!isMuted) {
