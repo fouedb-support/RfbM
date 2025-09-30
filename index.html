@@ -448,7 +448,7 @@ $(document).ready(function() {
         isPlaying = false;
     });
 
-    // --- 🔇 Mute Buttons ---
+    // --- 🔇 Mute Button ---
     let isMuted = false;
     $("#muteb").on("click", function() {
         if (!isMuted) {
@@ -479,13 +479,13 @@ $(document).ready(function() {
         $knob.css("left", (percent * volWidth) + "px");
     }
 
-    // clic direct sur la barre
+    // Direct click on the bar
     $volDiv.on("click", function(e) {
         let posX = e.offsetX;
         setVolume(posX);
     });
 
-    // drag du bouton
+    // Button drag
     $knob.on("mousedown", function() {
         dragging = true;
     });
