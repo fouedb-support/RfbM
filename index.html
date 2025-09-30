@@ -348,7 +348,7 @@ try {
     document.body.classList.remove("layout-compact");
   }
 } catch (e) {
-  console.error("Erreur d'adaptation :", e);
+  console.error("Adaptation error :", e);
 }
 </script>
 
@@ -378,7 +378,7 @@ function updateClock() {
 
   // Display the day with capital letters
   const options = { weekday: 'long' };
-  let day = now.toLocaleDateString('fr-FR', options);
+  let day = now.toLocaleDateString('en-US', options);
   day = day.charAt(0).toUpperCase() + day.slice(1);
   document.getElementById("day-display").textContent = day;
 }
@@ -389,7 +389,7 @@ updateClock();
 
 <script>
 $(document).ready(function() {
-    // Initialisation jPlayer avec autoplay
+    // Initializing jPlayer with autoplay
     $("#jquery_jplayer").jPlayer({
         ready: function() {
             $(this).jPlayer("setMedia", {
