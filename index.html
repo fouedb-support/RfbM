@@ -397,10 +397,22 @@ $(document).ready(function() {
             }).jPlayer("play"); // ✅ autoplay
         },
         supplied: "mp3",
-        volume: 0.8 // volume initial (80%)
+        volume: 0.8 // initial volume (80%)
     });
 
-    // Equalizers fonction
+    // Time format function
+    function formatTime(sec) {
+        let h = Math.floor(sec / 3600);
+        let m = Math.floor((sec % 3600) / 60);
+        let s = Math.floor(sec % 60);
+        return (
+            (h > 0 ? String(h).padStart(2,"0")+":" : "") +
+            String(m).padStart(2,"0")+":" +
+            String(s).padStart(2,"0")
+        );
+    }
+
+    // Equalizer function
     function toggleEqualizers(play) {
         const left = document.getElementById("vu");
         const right = document.getElementById("vu-again");
@@ -419,7 +431,7 @@ $(document).ready(function() {
         left.classList.toggle("off", !play);
         right.classList.toggle("off", !play);
     }
-
+    
     // Play/Stop management
     let isPlaying = false;
     $(".jp-play-toggle").on("click", function() {
@@ -436,6 +448,7 @@ $(document).ready(function() {
             .removeClass("play")
             .addClass("stop")
             .attr("title", "Stop");
+        $("#current-time").text("RfbM"); // reset counter
         isPlaying = true;
     });
 
@@ -445,6 +458,7 @@ $(document).ready(function() {
             .removeClass("stop")
             .addClass("play")
             .attr("title", "Play");
+        $("#current-time").text("Stopped"); // display "Stopped"
         isPlaying = false;
     });
 
@@ -461,6 +475,16 @@ $(document).ready(function() {
             $("#mutetxt").text("🔊");
             $(this).find(".tooltip").text("Mute");
             isMuted = false;
+        }
+    });
+
+    // --- ⏱ Timer update ---
+    $("#jquery_jplayer").on($.jPlayer.event.timeupdate, function(event) {
+        if (isPlaying) {
+            let sec = event.jPlayer.status.currentTime;
+            let txt = formatTime(sec);
+            if (isMuted) txt += " (muted)";
+            $("#current-time").text(txt);
         }
     });
 
