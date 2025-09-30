@@ -80,13 +80,7 @@ body.page .container::before { background-color: #e0e0e0 }
                </text>
                </svg>
             </div>
-                        
-            <!-- jPlayer -->
-            <div id="jquery_jplayer"></div>
-
-            <!-- Ton bouton Play/Stop -->
-                  <a href="javascript:;" class="jp-play-toggle play" title="Play"></a>
-                        
+                                                
 			<div id="videoad">
 			<div id="vmsg">Your station will play momentarily. <span id="vremain"></span></div><div id="vplay"></div>                                 <div id="videoad_v"></div><div id="jpdivm4v" class="jp-jplayer"></div>
 			</div>
@@ -148,6 +142,12 @@ body.page .container::before { background-color: #e0e0e0 }
 					Or just wait a little longer. The station may be offline.
 					<span id="nosoladd"></span>
 			</div>-->
+
+            <!-- jPlayer -->
+            <div id="jquery_jplayer"></div>
+
+            <!-- Ton bouton Play/Stop -->
+                  <a href="javascript:;" class="jp-play-toggle play" title="Play"></a>
 
 			<div class="song-info notrated">
 					<h1 id="song" class="song titlecolor">
@@ -292,7 +292,7 @@ buynowurl = 'https://www.amazon.com/s?k=@&i=digital-music&linkCode=ll2&tag=er0bf
 //old gp/redirect.html https://www.amazon.com/s?ie=UTF8&x=0&ref_=nb_sb_noss&y=0&field-keywords=@&url=search-alias%3Ddigital-music&tag=er0bf-20
 //new https://www.amazon.com/s?k=@&i=digital-music&linkCode=ll2&tag=er0bf-20
 cfg_itunes_at = "11lLzr";
-defaultalbumpic = "https://player.live365.com/configs/images/noalbum-white.png";
+defaultalbumpic = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/blankart.jpg";
 cfg_albumbackground = 1;
 cfg_albumdisplay = 1;
 cfg_staticalbumpic = 0;
@@ -389,17 +389,18 @@ updateClock();
 
 <script>
 $(document).ready(function() {
-    // Initializing jPlayer with autoplay
+    // Initialisation jPlayer avec autoplay
     $("#jquery_jplayer").jPlayer({
         ready: function() {
             $(this).jPlayer("setMedia", {
                 mp3: "https://streaming.live365.com/a82574"
             }).jPlayer("play"); // ✅ autoplay
         },
-        supplied: "mp3"
+        supplied: "mp3",
+        volume: 0.8 // volume initial (80%)
     });
 
-    // Equalizer function
+    // Fonction égaliseurs
     function toggleEqualizers(play) {
         const left = document.getElementById("vu");
         const right = document.getElementById("vu-again");
@@ -419,7 +420,7 @@ $(document).ready(function() {
         right.classList.toggle("off", !play);
     }
 
-    // Play/Stop management on the jp-play-toggle button
+    // Play/Stop management
     let isPlaying = false;
     $(".jp-play-toggle").on("click", function() {
         if (!isPlaying) {
@@ -429,13 +430,12 @@ $(document).ready(function() {
         }
     });
 
-    // Synchronization with jPlayer
     $("#jquery_jplayer").on($.jPlayer.event.play, function() {
         toggleEqualizers(true);
         $(".jp-play-toggle")
             .removeClass("play")
             .addClass("stop")
-            .attr("title", "Stop"); // ✅ tooltip on hover
+            .attr("title", "Stop");
         isPlaying = true;
     });
 
@@ -444,9 +444,66 @@ $(document).ready(function() {
         $(".jp-play-toggle")
             .removeClass("stop")
             .addClass("play")
-            .attr("title", "Play"); // ✅ tooltip on hover
+            .attr("title", "Play");
         isPlaying = false;
     });
+
+    // --- 🔇 Bouton Mute ---
+    let isMuted = false;
+    $("#muteb").on("click", function() {
+        if (!isMuted) {
+            $("#jquery_jplayer").jPlayer("mute");
+            $("#mutetxt").text("🔇");
+            $(this).find(".tooltip").text("Unmute");
+            isMuted = true;
+        } else {
+            $("#jquery_jplayer").jPlayer("unmute");
+            $("#mutetxt").text("🔊");
+            $(this).find(".tooltip").text("Mute");
+            isMuted = false;
+        }
+    });
+
+    // --- 🔊 Volume Slider ---
+    const $volDiv = $("#volumediv");
+    const $fill = $("#volume-fill");
+    const $knob = $("#volumeknob");
+
+    const volWidth = 100; // largeur fictive de la barre
+    let dragging = false;
+
+    function setVolume(px) {
+        let percent = Math.max(0, Math.min(1, px / volWidth));
+        $("#jquery_jplayer").jPlayer("volume", percent);
+        $fill.css("width", (percent * 100) + "%");
+        $knob.css("left", (percent * volWidth) + "px");
+    }
+
+    // clic direct sur la barre
+    $volDiv.on("click", function(e) {
+        let posX = e.offsetX;
+        setVolume(posX);
+    });
+
+    // drag du bouton
+    $knob.on("mousedown", function() {
+        dragging = true;
+    });
+
+    $(document).on("mouseup", function() {
+        dragging = false;
+    });
+
+    $(document).on("mousemove", function(e) {
+        if (dragging) {
+            let offset = $volDiv.offset().left;
+            let posX = e.pageX - offset;
+            setVolume(posX);
+        }
+    });
+
+    // init volume UI
+    setVolume(volWidth * 0.8); // volume initial 80%
 });
 </script>
 
