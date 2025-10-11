@@ -12,7 +12,7 @@
 	<script>page=0;lang_text={};Chrome=138;iPadOS=0;cfg_id="";</script>
 	<script src="https://player.live365.com/js/site.4.5.72.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" />
-        <link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
+    <link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
 	<script src="https://player.live365.com/js/modernizr-custom.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     
@@ -188,7 +188,8 @@ body.page .container::before { background-color: #e0e0e0 }
             <div id="volumediv">
             <div id="volume-fill"></div>
             <div id="volumeknob"></div>           
-            <div id="volume-control" class="iconskin"></div>            
+            <div id="volume-control" class="iconskin"></div>
+            <div id="tooltip-volume">50%</div>
             </div>            
             </div>
             </div>             
@@ -282,7 +283,7 @@ gtag_send();
 needs_hist = true;
 live365 = "a82574";
 autoplay = 0;
-playvolume = 0.7;
+playvolume = 1;
 spotxID = 0;
 cc = 1, config = "_live365";
 cfg_synchrobox300 = "", cfg_synchrobox728 = "", cfg_synchrobox640 = "";
@@ -401,7 +402,7 @@ $(document).ready(function() {
             }).jPlayer("play"); // ✅ autoplay
         },
         supplied: "mp3",
-        volume: 0.8 // initial volume (80%)
+        volume: 1 // initial volume (100%)
     });
 
     // Time format function
@@ -452,7 +453,7 @@ $(document).ready(function() {
             .removeClass("play")
             .addClass("stop")
             .attr("title", "Stop");
-        $("#current-time").text("RfbM"); // reset counter
+        $("#current-time").text("00:00"); // reset counter
         isPlaying = true;
     });
 
@@ -531,7 +532,26 @@ $(document).ready(function() {
     });
 
     // init volume UI
-    setVolume(volWidth * 0.8); // volume initial 80%
+    setVolume(volWidth * 1); // volume initial 100%
+
+    // --- 🎯 Tooltip Volume ---
+    const tooltip = $('<div id="tooltip-volume" style="position:absolute;padding:2px 6px;font-size:11px;color:#fff;background:rgba(0,0,0,0.8);border-radius:4px;pointer-events:none;opacity:0;transition:opacity 0.15s ease;z-index:9999;"></div>');
+    $("body").append(tooltip);
+
+    $volDiv.on("mousemove", function(e) {
+        const rect = this.getBoundingClientRect();
+        const percent = Math.max(0, Math.min(100, Math.round(((e.clientX - rect.left) / rect.width) * 100)));
+        tooltip.text(percent + "%");
+        tooltip.css({
+            left: e.pageX + "px",
+            top: (e.pageY - 25) + "px",
+            opacity: 1
+        });
+    });
+
+    $volDiv.on("mouseleave", function() {
+        tooltip.css("opacity", 0);
+    });
 });
 </script>
 
