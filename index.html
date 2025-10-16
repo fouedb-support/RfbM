@@ -12,9 +12,9 @@
 	<script>page=0;lang_text={};Chrome=138;iPadOS=0;cfg_id="";</script>
 	<script src="https://player.live365.com/js/site.4.5.72.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" />
-    <link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
+        <link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
 	<script src="https://player.live365.com/js/modernizr-custom.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     
 	<meta property="og:title" content="Radio fouedb Music" />
 	<meta property="og:image" content="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" />
@@ -51,8 +51,15 @@ body.page .container::before { background-color: #e0e0e0 }
             <div id="jpdivm4a" class="jp-jplayer"></div>
             <div id="jw1" class="jp-jplayer"></div>
             <div class="playerbg themebg" style=""></div>
+                        
             <div class="player">
-           
+                        
+            <div class="player-border">
+            <div class="mode-toggle" id="modeText">appearing</div>
+            </div>
+                                   
+            <div class="player-ui">
+                       
             <div align="center" class="header titlecolor" style=""><span class="head_title" style=""><a href="https://radiofouedbmusic.weebly.com" target="_blank" title="Open Website"><img class="logo" alt="logo" src="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" style="max-width:100%; margin-right:0px" /></a></span>
             </div>
                         
@@ -251,6 +258,7 @@ body.page .container::before { background-color: #e0e0e0 }
             <section class="overlay-content" id="extra-ovl"></section>
             </div>
             </div>
+            </div>            
             </div>
               
 <!-- Google tag (gtag.js) custom code-->
@@ -553,6 +561,44 @@ $(document).ready(function() {
         tooltip.css("opacity", 0);
     });
 });
+</script>
+
+<script>
+let hideTimeout;
+let autoHide = true; // automatic mode by default
+
+const player = document.querySelector('.player');
+const ui = document.querySelector('.player-ui');
+const modeText = document.getElementById('modeText');
+
+// --- Function to show/hide according to movement ---
+function showUI() {
+  if (!autoHide) return; // si mode "masked", on ignore
+  ui.classList.remove('hidden');
+  clearTimeout(hideTimeout);
+  hideTimeout = setTimeout(() => ui.classList.add('hidden'), 4000);
+}
+
+// --- Switch between modes ---
+modeText.addEventListener('click', () => {
+  autoHide = !autoHide;
+  if (autoHide) {
+    modeText.textContent = 'appearing';
+    showUI();
+  } else {
+    modeText.textContent = 'masked';
+    ui.classList.remove('hidden');
+    clearTimeout(hideTimeout);
+  }
+});
+
+// --- Mouse movement/touch detection ---
+['mousemove', 'touchstart'].forEach(event =>
+  player.addEventListener(event, showUI)
+);
+
+// --- Cache initially after 6s ---
+hideTimeout = setTimeout(() => ui.classList.add('hidden'), 6000);
 </script>
 
 </body>
