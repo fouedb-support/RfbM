@@ -57,10 +57,10 @@ body.page .container::before { background-color: #e0e0e0 }
             <div class="player-border">
             <div class="mode-toggle" id="modeText">appearing</div>
             </div>
-                                   
+            
             <div class="player-ui">
-                       
-            <div align="center" class="header titlecolor" style=""><span class="head_title" style=""><a href="https://radiofouedbmusic.weebly.com" target="_blank" title="Open Website"><img class="logo" alt="logo" src="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" style="max-width:100%; margin-right:0px" /></a></span>
+                                                          
+            <div align="center" class="header titlecolor" style=""><span class="head_title" style=""><a title="Radio fouedb Music"><img class="logo" alt="logo" src="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" style="max-width:100%; margin-right:0px" /></a></span>
             </div>
                         
             <div id="vu" class="off"></div>
@@ -225,9 +225,9 @@ body.page .container::before { background-color: #e0e0e0 }
                     <a class="lb_fb" target="_blank" href="https://www.facebook.com/RadiofouedbMusic.RfbM.FouedBahri" title="Facebook"></a>
                     <a class="lb_twitter" target="w_twitter" href="https://x.com/Radio_fb_Music" title="X/Twitter"></a>
                     <a class="lb_instagram" target="_blank" href="https://www.instagram.com/radio.fb.music" title="Instagram"></a></div>
-            <div class="powered-by"><a target="_blank" href="https://live365.com/">
+            <div class="powered-by"><a target="_blank" href="https://live365.com/station/Radio-fouedb-Music-a82574">
                     <img src="https://player.live365.com/configs/images/live365-poweredby.png" width="80" height="35" align="left"/></a><span id="pwlast"></span> <span class="privacylink"> &bull; 
-                    <a href="https://live365.com/station/Radio-fouedb-Music-a82574" class="priv-open" target="_blank" rel="noopener noreferrer">RfbM</a></span></div>
+                    <a href="https://radiofouedbmusic.weebly.com" class="priv-open" target="_blank" rel="noopener noreferrer">RfbM</a></span></div>
             </div>
             </div>
 
@@ -262,7 +262,7 @@ body.page .container::before { background-color: #e0e0e0 }
             <div class="player-border-bottom">
             <div class="bottom-text">Radio fouedb Music</div>
             </div>
-            
+                        
             </div>            
             </div>
               
@@ -578,10 +578,10 @@ const modeText = document.getElementById('modeText');
 
 // --- Function to show/hide according to movement ---
 function showUI() {
-  if (!autoHide) return; // si mode "masked", on ignore
+  if (!autoHide) return; // if "masked" mode, we ignore
   ui.classList.remove('hidden');
   clearTimeout(hideTimeout);
-  hideTimeout = setTimeout(() => ui.classList.add('hidden'), 4000);
+  hideTimeout = setTimeout(() => ui.classList.add('hidden'), 6000);
 }
 
 // --- Switch between modes ---
