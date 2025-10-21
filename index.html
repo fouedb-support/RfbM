@@ -12,9 +12,9 @@
 	<script>page=0;lang_text={};Chrome=138;iPadOS=0;cfg_id="";</script>
 	<script src="https://player.live365.com/js/site.4.5.72.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" />
-    <link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
-    <script src="https://player.live365.com/js/modernizr-custom.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+        <link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-rfbm.css?4.5.72" />
+        <script src="https://player.live365.com/js/modernizr-custom.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     
 	<meta property="og:title" content="Radio fouedb Music" />
 	<meta property="og:image" content="https://media.live365.com/download/6f98e3c6-0bae-4b85-8003-6ece2ee9944c.gif" />
@@ -22,7 +22,7 @@
 	<meta property="og:type" content="music.radio_station" />
 	<meta property="og:url" content="https://player.live365.com/a82574?l=" />    
 	<script>function minadw() {return 985}</script>
-    
+
 <style>
 .header img { margin-top: -14px; max-height:52px }
 body.page,
@@ -297,56 +297,32 @@ needs_hist = false;
 live365 = "a82574";
 autoplay = 0;
 playvolume = 1;
-spotxID = 0;
 cc = 1, config = "_live365";
 cfg_synchrobox300 = "", cfg_synchrobox728 = "", cfg_synchrobox640 = "";
-bufferGiveupCount = 18;
-var prefer, version = '4.5.72';
-mini = 0;
 canHLS = 0;
 basepath = '';
 srvtime = "2025-07-20T22:09:37+00:00"; //js friendly
 buynowurl = 'https://www.amazon.com/s?k=@&i=digital-music&linkCode=ll2&tag=er0bf-20'; //Replace @ with search term
 //old gp/redirect.html https://www.amazon.com/s?ie=UTF8&x=0&ref_=nb_sb_noss&y=0&field-keywords=@&url=search-alias%3Ddigital-music&tag=er0bf-20
 //new https://www.amazon.com/s?k=@&i=digital-music&linkCode=ll2&tag=er0bf-20
-cfg_itunes_at = "11lLzr";
 defaultalbumpic = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/blankart.jpg";
 cfg_albumbackground = 1;
-cfg_albumdisplay = 1;
 cfg_staticalbumpic = 0;
-cfg_NotASongKeywords = "promo,adwtag,awbreak,ais1,ais3,ais6,adcor,admain,station id,stationid,live365".split(",");
+cfg_NotASongKeywords = "".split(",");
 cfg_HideNotASong = 0;
-lang = "en";
+cfg_polledMetaDelay = 0;
 cfg_albumapi = "amazon";
-cfg_pickrandomstream = 0;
-cfg_emq = "aGVscEBsaXZlMzY1LmNvbQ==";
-cfg_polledMetaDelay = 9;
-cfg_maxsessiontime = 3550;
-cfg_neverAutoplay = 0;
+cfg_pickrandomstream = 1;
 cfg_yp_mount = "";
-adswizzserver = "";
 is_AIS = 1;
 listenerid = "";
 numhistory = 5;
-nohlsmeta = 0;
 mobile = 0;
-FFX = 0;
-if(window.CCPA == undefined) CCPA = "";
 cfg_statictrack = "";
-client_IP = '0.0.0.0';
 GEO_country=''; GEO_virt_country=''; GEO_subdivision='';
-debug_ = 0;
+debug_ = '';
 cfg_historyURL = '';
-prefer = 'H';
-eventsrc = 'https://streaming.live365.com/metadata?type=plain';
-
 streams = [{"format":"icehls","host":"streaming.live365.com","id":"a82574/playlist.m3u8","https":1,"port":443},{"format":"ice","host":"streaming.live365.com","id":"a82574","https":1,"port":443}];
-master = 0;
-masterids = [];
-
-if(!window.setStream) {
-	$(".song,.fill_song").html("Player script error. Adblock?");
-}
 </script>
 
 <script>
@@ -570,40 +546,57 @@ $(document).ready(function() {
 
 <script>
 let hideTimeout;
-let autoHide = true; // automatic mode by default
+let autoHide = true; // Appearing by default
 
 const player = document.querySelector('.player');
 const ui = document.querySelector('.player-ui');
 const modeText = document.getElementById('modeText');
 
-// --- Function to show/hide according to movement ---
 function showUI() {
-  if (!autoHide) return; // if "masked" mode, we ignore
   ui.classList.remove('hidden');
+
+  if (!autoHide) return;
+
   clearTimeout(hideTimeout);
-  hideTimeout = setTimeout(() => ui.classList.add('hidden'), 6000);
+  hideTimeout = setTimeout(() => {
+    ui.classList.add('hidden');
+  }, 6000); // 6 secondes
 }
 
-// --- Switch between modes ---
 modeText.addEventListener('click', () => {
   autoHide = !autoHide;
+  modeText.textContent = autoHide ? 'appearing' : 'masked';
+
   if (autoHide) {
-    modeText.textContent = 'appearing';
     showUI();
   } else {
-    modeText.textContent = 'masked';
-    ui.classList.remove('hidden');
     clearTimeout(hideTimeout);
+    ui.classList.remove('hidden');
   }
 });
 
-// --- Mouse movement/touch detection ---
-['mousemove', 'touchstart'].forEach(event =>
+['mousemove', 'touchstart', 'click'].forEach(event =>
   player.addEventListener(event, showUI)
 );
 
-// --- Cache initially after 6s ---
+// Hide after 6s on startup
 hideTimeout = setTimeout(() => ui.classList.add('hidden'), 6000);
+
+// Change bottom text alternatively 
+const bottomText = document.querySelector(".bottom-text");
+
+let isOriginalText = true;
+
+setInterval(() => {
+  if (isOriginalText) {
+    bottomText.textContent = "Welcome";
+    bottomText.style.color = "lime";
+  } else {
+    bottomText.textContent = "Radio fouedb Music";
+    bottomText.style.color = ""; // Return to default CSS color
+  }
+  isOriginalText = !isOriginalText;
+}, 6000); // 6000 ms = 6s
 </script>
 
 </body>
