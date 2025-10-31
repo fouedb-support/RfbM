@@ -313,32 +313,56 @@ needs_hist = false;
 live365 = "a82574";
 autoplay = 0;
 playvolume = 1;
+spotxID = 0;
 cc = 1, config = "_live365";
 cfg_synchrobox300 = "", cfg_synchrobox728 = "", cfg_synchrobox640 = "";
+bufferGiveupCount = 18;
+var prefer, version = '4.5.72';
+mini = 0;
 canHLS = 0;
 basepath = '';
 srvtime = "2025-07-20T22:09:37+00:00"; //js friendly
 buynowurl = 'https://www.amazon.com/s?k=@&i=digital-music&linkCode=ll2&tag=er0bf-20'; //Replace @ with search term
 //old gp/redirect.html https://www.amazon.com/s?ie=UTF8&x=0&ref_=nb_sb_noss&y=0&field-keywords=@&url=search-alias%3Ddigital-music&tag=er0bf-20
 //new https://www.amazon.com/s?k=@&i=digital-music&linkCode=ll2&tag=er0bf-20
+cfg_itunes_at = "11lLzr";
 defaultalbumpic = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/blankart.jpg";
 cfg_albumbackground = 1;
+cfg_albumdisplay = 1;
 cfg_staticalbumpic = 0;
-cfg_NotASongKeywords = "".split(",");
+cfg_NotASongKeywords = "promo,adwtag,awbreak,ais1,ais3,ais6,adcor,admain,station id,stationid,live365".split(",");
 cfg_HideNotASong = 0;
-cfg_polledMetaDelay = 0;
+lang = "en";
 cfg_albumapi = "amazon";
-cfg_pickrandomstream = 1;
+cfg_pickrandomstream = 0;
+cfg_emq = "aGVscEBsaXZlMzY1LmNvbQ==";
+cfg_polledMetaDelay = 9;
+cfg_maxsessiontime = 86400;
+cfg_neverAutoplay = 0;
 cfg_yp_mount = "";
+adswizzserver = "";
 is_AIS = 1;
 listenerid = "";
-numhistory = 5;
+numhistory = 10;
+nohlsmeta = 0;
 mobile = 0;
+FFX = 0;
+if(window.CCPA == undefined) CCPA = "";
 cfg_statictrack = "";
+client_IP = '0.0.0.0';
 GEO_country=''; GEO_virt_country=''; GEO_subdivision='';
-debug_ = '';
+debug_ = 0;
 cfg_historyURL = '';
+prefer = 'H';
+eventsrc = 'https://streaming.live365.com/metadata?type=plain';
+
 streams = [{"format":"icehls","host":"streaming.live365.com","id":"a82574/playlist.m3u8","https":1,"port":443},{"format":"ice","host":"streaming.live365.com","id":"a82574","https":1,"port":443}];
+master = 0;
+masterids = [];
+
+if(!window.setStream) {
+	$(".song,.fill_song").html("Player script error. Adblock?");
+}
 </script>
 
 <script>
