@@ -407,15 +407,27 @@ updateClock();
 
 <script>
 $(document).ready(function() {
+    // Stream config
+    var stream = {
+        mp3: "https://streaming.live365.com/a82574"
+    };
+
+    // State
+    let isPlaying = false;
+    let isMuted = false;
+    let userStopped = false; // If true -> It does not restart automatically
+
     // Initializing jPlayer with autoplay
     $("#jquery_jplayer").jPlayer({
         ready: function() {
-            $(this).jPlayer("setMedia", {
-                mp3: "https://streaming.live365.com/a82574"
-            }).jPlayer("play"); // ✅ autoplay
+            $(this).jPlayer("setMedia", stream).jPlayer("play"); // ✅ Autoplay
+            userStopped = false; // Initial autoplay => Not a deliberate stop
         },
         supplied: "mp3",
-        volume: 1 // initial volume (100%)
+        volume: 1, // Initial volume (100%)
+        preload: "none",
+        errorAlerts: false,
+        warningAlerts: false
     });
 
     // Time format function
@@ -439,28 +451,31 @@ $(document).ready(function() {
         if (play) {
             const cacheBuster = Date.now();
             const gifURL = `${baseURL}?v=${cacheBuster}`;
-            left.style.backgroundImage = `url("${gifURL}")`;
-            right.style.backgroundImage = `url("${gifURL}")`;
+            if (left) left.style.backgroundImage = `url("${gifURL}")`;
+            if (right) right.style.backgroundImage = `url("${gifURL}")`;
         } else {
-            left.style.removeProperty("background-image");
-            right.style.removeProperty("background-image");
+            if (left) left.style.removeProperty("background-image");
+            if (right) right.style.removeProperty("background-image");
         }
 
-        left.classList.toggle("off", !play);
-        right.classList.toggle("off", !play);
+        if (left) left.classList.toggle("off", !play);
+        if (right) right.classList.toggle("off", !play);
     }
-    
-    // Play/Stop management
-    let isPlaying = false;
-    $(".jp-play-toggle").on("click", function() {
+
+    // --- Play/Stop management (set to userStopped if STOP is intentional)
+    $(".jp-play-toggle").off("click").on("click", function() {
         if (!isPlaying) {
+            userStopped = false;   // Voluntary PLAY -> Recovery is allowed
             $("#jquery_jplayer").jPlayer("play");
         } else {
+            userStopped = true;    // Voluntary STOP -> Block recovery
             $("#jquery_jplayer").jPlayer("pause");
         }
     });
 
+    // Play event
     $("#jquery_jplayer").on($.jPlayer.event.play, function() {
+        userStopped = false; // Playing = Not a voluntary stop
         toggleEqualizers(true);
         $(".jp-play-toggle")
             .removeClass("play")
@@ -470,6 +485,7 @@ $(document).ready(function() {
         isPlaying = true;
     });
 
+    // Pause / ended: UI updates but NOT flagged as userStopped here
     $("#jquery_jplayer").on($.jPlayer.event.pause + " " + $.jPlayer.event.ended, function() {
         toggleEqualizers(false);
         $(".jp-play-toggle")
@@ -480,8 +496,7 @@ $(document).ready(function() {
         isPlaying = false;
     });
 
-    // --- 🔇 Mute Button ---
-    let isMuted = false;
+    // --- Mute Button ---
     $("#muteb").on("click", function() {
         if (!isMuted) {
             $("#jquery_jplayer").jPlayer("mute");
@@ -496,7 +511,7 @@ $(document).ready(function() {
         }
     });
 
-    // --- ⏱ Timer update ---
+    // --- Timer update ---
     $("#jquery_jplayer").on($.jPlayer.event.timeupdate, function(event) {
         if (isPlaying) {
             let sec = event.jPlayer.status.currentTime;
@@ -506,11 +521,10 @@ $(document).ready(function() {
         }
     });
 
-    // --- 🔊 Volume Slider ---
+    // --- Volume Slider ---
     const $volDiv = $("#volumediv");
     const $fill = $("#volume-fill");
     const $knob = $("#volumeknob");
-
     const volWidth = 100; // Fictitious bar width
     let dragging = false;
 
@@ -521,21 +535,13 @@ $(document).ready(function() {
         $knob.css("left", (percent * volWidth) + "px");
     }
 
-    // Direct click on the bar
     $volDiv.on("click", function(e) {
         let posX = e.offsetX;
         setVolume(posX);
     });
 
-    // Button drag
-    $knob.on("mousedown", function() {
-        dragging = true;
-    });
-
-    $(document).on("mouseup", function() {
-        dragging = false;
-    });
-
+    $knob.on("mousedown", function() { dragging = true; });
+    $(document).on("mouseup", function() { dragging = false; });
     $(document).on("mousemove", function(e) {
         if (dragging) {
             let offset = $volDiv.offset().left;
@@ -547,7 +553,7 @@ $(document).ready(function() {
     // init volume UI
     setVolume(volWidth * 1); // volume initial 100%
 
-    // --- 🎯 Tooltip Volume ---
+    // --- Tooltip Volume ---
     const tooltip = $('<div id="tooltip-volume" style="position:absolute;padding:2px 6px;font-size:11px;color:#fff;background:rgba(0,0,0,0.8);border-radius:4px;pointer-events:none;opacity:0;transition:opacity 0.15s ease;z-index:9999;"></div>');
     $("body").append(tooltip);
 
@@ -565,14 +571,46 @@ $(document).ready(function() {
     $volDiv.on("mouseleave", function() {
         tooltip.css("opacity", 0);
     });
-});
 
-// --- Social & Web ---
-document.addEventListener('click', function(e) {
-  const popup = document.getElementById('social-popup');
+    // --- 🔄 Auto-Recovery (restart if the shutdown is not voluntary) ---
+    function autoRestart() {
+        if (!userStopped) {
+            // short delay to avoid tight loops
+            setTimeout(function () {
+                try {
+                    $("#jquery_jplayer").jPlayer("play");
+                } catch (e) {
+                    // fallback: re-set media then play
+                    $("#jquery_jplayer").jPlayer("setMedia", stream).jPlayer("play");
+                }
+            }, 1000);
+        }
+    }
 
-  if (window.location.hash === '#social-popup') {
-    if (!popup.contains(e.target)) {
+    // Bind events that indicate unwanted stop
+    $("#jquery_jplayer").on($.jPlayer.event.ended, autoRestart);
+    $("#jquery_jplayer").on($.jPlayer.event.error, autoRestart);
+    $("#jquery_jplayer").on($.jPlayer.event.stalled, autoRestart);
+
+    // Periodic check in case of freeze (every 8s)
+    setInterval(function () {
+        var jp = $("#jquery_jplayer").data("jPlayer");
+        if (jp) {
+            // if paused but not due to user stop -> try to play
+            if (jp.status && jp.status.paused && !userStopped) {
+                $("#jquery_jplayer").jPlayer("play");
+            }
+        }
+    }, 8000);
+
+    }); // End document.ready
+
+    // --- Social & Web closing hash handler (kept as-is) ---
+    document.addEventListener('click', function(e) {
+    const popup = document.getElementById('social-popup');
+
+    if (window.location.hash === '#social-popup') {
+    if (popup && !popup.contains(e.target)) {
       window.location.hash = '';
     }
   }
