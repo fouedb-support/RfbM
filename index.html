@@ -435,47 +435,56 @@ updateClock();
 
 <script>
 $(document).ready(function() {
-    // Stream config
-    var stream = {
-        mp3: "https://streaming.live365.com/a82574"
-    };
-
-    // State
+    // -------------------
+    // CONFIG / STATE
+    // -------------------
+    const stream = { mp3: "https://streaming.live365.com/a82574" };
     let isPlaying = false;
     let isMuted = false;
-    let userStopped = false; // If true -> It does not restart automatically
+    let userStopped = false;    // True = user intentionally stopped (no auto-restart)
+    let retryLock = false;      // Prevents simultaneous restarts
+    let retryDelay = 3000;      // Initial delay (ms)
+    let retryBackoff = 1;       // Backoff multiplier (max 5)
 
-    // Initializing jPlayer with autoplay
+    // Safe destroy prior jPlayer if exists
+    try { $("#jquery_jplayer").jPlayer("destroy"); } catch(e){}
+
+    // -------------------
+    // jPlayer init
+    // -------------------
     $("#jquery_jplayer").jPlayer({
         ready: function() {
-            $(this).jPlayer("setMedia", stream).jPlayer("play"); // ✅ Autoplay
-            userStopped = false; // Initial autoplay => Not a deliberate stop
+            try {
+                $(this).jPlayer("setMedia", stream).jPlayer("play"); // ✅ Autoplay attempt
+                userStopped = false;
+                console.log("[player] jPlayer ready - autoplay attempted");
+            } catch (e) {
+                console.warn("[player] jPlayer ready error:", e);
+            }
         },
         supplied: "mp3",
-        volume: 1, // Initial volume (100%)
         preload: "none",
+        volume: 1,
         errorAlerts: false,
         warningAlerts: false
     });
 
-    // Time format function
+    // -------------------
+    // Helpers
+    // -------------------
     function formatTime(sec) {
         let h = Math.floor(sec / 3600);
         let m = Math.floor((sec % 3600) / 60);
         let s = Math.floor(sec % 60);
-        return (
-            (h > 0 ? String(h).padStart(2,"0")+":" : "") +
-            String(m).padStart(2,"0")+":" +
-            String(s).padStart(2,"0")
-        );
+        return (h > 0 ? String(h).padStart(2,"0")+":" : "") +
+               String(m).padStart(2,"0")+":" +
+               String(s).padStart(2,"0");
     }
 
-    // Equalizer function
     function toggleEqualizers(play) {
         const left = document.getElementById("vu");
         const right = document.getElementById("vu-again");
         const baseURL = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/vu-gif-on-air.gif";
-
         if (play) {
             const cacheBuster = Date.now();
             const gifURL = `${baseURL}?v=${cacheBuster}`;
@@ -485,47 +494,74 @@ $(document).ready(function() {
             if (left) left.style.removeProperty("background-image");
             if (right) right.style.removeProperty("background-image");
         }
-
         if (left) left.classList.toggle("off", !play);
         if (right) right.classList.toggle("off", !play);
     }
 
-    // --- Play/Stop management (set to userStopped if STOP is intentional)
+    // -------------------
+    // Play/Stop button
+    // -------------------
     $(".jp-play-toggle").off("click").on("click", function() {
         if (!isPlaying) {
-            userStopped = false;   // Voluntary PLAY -> Recovery is allowed
+            userStopped = false;   // user wants play -> allow auto-restart later
+            console.log("[player] user clicked PLAY");
             $("#jquery_jplayer").jPlayer("play");
         } else {
-            userStopped = true;    // Voluntary STOP -> Block recovery
+            userStopped = true;    // user intentionally stopped -> block auto-restart
+            console.log("[player] user clicked STOP (voluntary)");
             $("#jquery_jplayer").jPlayer("pause");
         }
     });
 
-    // Play event
-    $("#jquery_jplayer").on($.jPlayer.event.play, function() {
-        userStopped = false; // Playing = Not a voluntary stop
-        toggleEqualizers(true);
-        $(".jp-play-toggle")
-            .removeClass("play")
-            .addClass("stop")
-            .attr("title", "Stop");
-        $("#current-time").text("00:00"); // reset counter
-        isPlaying = true;
-    });
+    // -------------------
+    // jPlayer events
+    // -------------------
+    $("#jquery_jplayer")
+        .off(".playerEvents")
+        .on($.jPlayer.event.play + ".playerEvents", function () {
+            console.log("[player] event: play");
+            userStopped = false;
+            isPlaying = true;
+            retryBackoff = 1; // reset backoff on success
+            try { toggleEqualizers(true); } catch(e){}
+            $(".jp-play-toggle").removeClass("play").addClass("stop").attr("title", "Stop");
+            $("#current-time").text("00:00");
+        })
+        .on($.jPlayer.event.pause + ".playerEvents", function () {
+            console.log("[player] event: pause");
+            isPlaying = false;
+            try { toggleEqualizers(false); } catch(e){}
+            $(".jp-play-toggle").removeClass("stop").addClass("play").attr("title", "Play");
+            $("#current-time").text("Stopped");
+        })
+        .on($.jPlayer.event.ended + ".playerEvents", function () {
+            console.log("[player] event: ended");
+            isPlaying = false;
+            attemptReconnect("ended");
+        })
+        .on($.jPlayer.event.stalled + ".playerEvents", function () {
+            console.log("[player] event: stalled");
+            isPlaying = false;
+            attemptReconnect("stalled");
+        })
+        .on($.jPlayer.event.error + ".playerEvents", function () {
+            console.warn("[player] event: error");
+            isPlaying = false;
+            attemptReconnect("error");
+        })
+        .on($.jPlayer.event.timeupdate + ".playerEvents", function(event) {
+            if (isPlaying) {
+                let sec = event.jPlayer.status.currentTime;
+                let txt = formatTime(sec);
+                if (isMuted) txt += " (muted)";
+                $("#current-time").text(txt);
+            }
+        });
 
-    // Pause / ended: UI updates but NOT flagged as userStopped here
-    $("#jquery_jplayer").on($.jPlayer.event.pause + " " + $.jPlayer.event.ended, function() {
-        toggleEqualizers(false);
-        $(".jp-play-toggle")
-            .removeClass("stop")
-            .addClass("play")
-            .attr("title", "Play");
-        $("#current-time").text("Stopped"); // display "Stopped"
-        isPlaying = false;
-    });
-
-    // --- Mute Button ---
-    $("#muteb").on("click", function() {
+    // -------------------
+    // Mute button
+    // -------------------
+    $("#muteb").off("click").on("click", function() {
         if (!isMuted) {
             $("#jquery_jplayer").jPlayer("mute");
             $("#mutetxt").text("🔇");
@@ -539,21 +575,13 @@ $(document).ready(function() {
         }
     });
 
-    // --- Timer update ---
-    $("#jquery_jplayer").on($.jPlayer.event.timeupdate, function(event) {
-        if (isPlaying) {
-            let sec = event.jPlayer.status.currentTime;
-            let txt = formatTime(sec);
-            if (isMuted) txt += " (muted)";
-            $("#current-time").text(txt);
-        }
-    });
-
-    // --- Volume Slider ---
+    // -------------------
+    // Volume slider
+    // -------------------
     const $volDiv = $("#volumediv");
     const $fill = $("#volume-fill");
     const $knob = $("#volumeknob");
-    const volWidth = 100; // Fictitious bar width
+    const volWidth = 100;
     let dragging = false;
 
     function setVolume(px) {
@@ -563,14 +591,14 @@ $(document).ready(function() {
         $knob.css("left", (percent * volWidth) + "px");
     }
 
-    $volDiv.on("click", function(e) {
+    $volDiv.off("click").on("click", function(e) {
         let posX = e.offsetX;
         setVolume(posX);
     });
 
-    $knob.on("mousedown", function() { dragging = true; });
-    $(document).on("mouseup", function() { dragging = false; });
-    $(document).on("mousemove", function(e) {
+    $knob.off("mousedown").on("mousedown", function() { dragging = true; });
+    $(document).off("mouseup.volume").on("mouseup.volume", function() { dragging = false; });
+    $(document).off("mousemove.volume").on("mousemove.volume", function(e) {
         if (dragging) {
             let offset = $volDiv.offset().left;
             let posX = e.pageX - offset;
@@ -579,13 +607,13 @@ $(document).ready(function() {
     });
 
     // init volume UI
-    setVolume(volWidth * 1); // volume initial 100%
+    setVolume(volWidth * 1);
 
-    // --- Tooltip Volume ---
+    // tooltip for volume
     const tooltip = $('<div id="tooltip-volume" style="position:absolute;padding:2px 6px;font-size:11px;color:#fff;background:rgba(0,0,0,0.8);border-radius:4px;pointer-events:none;opacity:0;transition:opacity 0.15s ease;z-index:9999;"></div>');
     $("body").append(tooltip);
 
-    $volDiv.on("mousemove", function(e) {
+    $volDiv.off("mousemove").on("mousemove", function(e) {
         const rect = this.getBoundingClientRect();
         const percent = Math.max(0, Math.min(100, Math.round(((e.clientX - rect.left) / rect.width) * 100)));
         tooltip.text(percent + "%");
@@ -596,48 +624,66 @@ $(document).ready(function() {
         });
     });
 
-    $volDiv.on("mouseleave", function() {
+    $volDiv.off("mouseleave").on("mouseleave", function() {
         tooltip.css("opacity", 0);
     });
 
-    // --- 🔄 Auto-Recovery (restart if the shutdown is not voluntary) ---
-    function autoRestart() {
-        if (!userStopped) {
-            // short delay to avoid tight loops
-            setTimeout(function () {
-                try {
-                    $("#jquery_jplayer").jPlayer("play");
-                } catch (e) {
-                    // fallback: re-set media then play
-                    $("#jquery_jplayer").jPlayer("setMedia", stream).jPlayer("play");
-                }
-            }, 1000);
+    // -------------------
+    // Secure Auto-Recovery (anti-loop)
+    // -------------------
+    function attemptReconnect(reason) {
+        if (userStopped) {
+            console.log("[player] reconnect suppressed (userStopped) - reason:", reason);
+            return;
         }
+        if (retryLock) {
+            console.log("[player] reconnect already scheduled - skipping (reason:", reason,")");
+            return;
+        }
+        retryLock = true;
+        const delay = retryDelay * retryBackoff;
+        console.log("[player] scheduling reconnect in", delay, "ms (reason:", reason, ")");
+        setTimeout(function() {
+            retryLock = false;
+            try {
+                // Try a gentle reset: stop -> setMedia -> play
+                $("#jquery_jplayer").jPlayer("stop");
+                $("#jquery_jplayer").jPlayer("setMedia", stream).jPlayer("play");
+                console.log("[player] reconnect attempt executed");
+            } catch (e) {
+                console.error("[player] reconnect attempt failed:", e);
+            }
+            // Increase backoff progressively (cap)
+            retryBackoff = Math.min(retryBackoff * 1.5, 5);
+        }, delay);
     }
 
-    // Bind events that indicate unwanted stop
-    $("#jquery_jplayer").on($.jPlayer.event.ended, autoRestart);
-    $("#jquery_jplayer").on($.jPlayer.event.error, autoRestart);
-    $("#jquery_jplayer").on($.jPlayer.event.stalled, autoRestart);
-
-    // Periodic check in case of freeze (every 8s)
+    // Periodic safeguard: if paused (not userStopped) and no retry scheduled => attempt reconnect
     setInterval(function () {
-        var jp = $("#jquery_jplayer").data("jPlayer");
-        if (jp) {
-            // if paused but not due to user stop -> try to play
-            if (jp.status && jp.status.paused && !userStopped) {
-                $("#jquery_jplayer").jPlayer("play");
+        try {
+            if (userStopped || retryLock) return;
+            const jp = $("#jquery_jplayer").data("jPlayer");
+            if (!jp || !jp.status) return;
+            if (jp.status.paused) {
+                console.log("[player] periodic check: paused => attemptReconnect");
+                attemptReconnect("periodic-check");
             }
+        } catch (e) {
+            console.error("[player] periodic check error:", e);
         }
-    }, 8000);
+    }, 12000);
 
-    }); // End document.ready
+    // Expose debug state
+    window.__radioPlayerState = function() {
+        return { userStopped, isPlaying, retryLock, retryBackoff };
+    };
 
-    // --- Social & Web closing hash handler (kept as-is) ---
-    document.addEventListener('click', function(e) {
-    const popup = document.getElementById('social-popup');
+}); // end document.ready
 
-    if (window.location.hash === '#social-popup') {
+// --- Social & Web closing hash handler (kept as-is) ---
+document.addEventListener('click', function(e) {
+  const popup = document.getElementById('social-popup');
+  if (window.location.hash === '#social-popup') {
     if (popup && !popup.contains(e.target)) {
       window.location.hash = '';
     }
