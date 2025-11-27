@@ -89,7 +89,7 @@ body.page .container::before { background-color: #e0e0e0 }
             
             <div class="player-ui">
                                                           
-            <div align="center" class="header titlecolor" style=""><span class="head_title" style=""><a title="Radio fouedb Music"><img class="logo" alt="logo" src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/rfbm-logo.gif" style="max-width:100%; margin-right:0px" /></a></span>
+            <div align="center" class="header titlecolor" style=""><span class="head_title" style=""><a title="Radio fouedb Music"><img class="logo" alt="logo" src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/rfbm-logo.gif" style="max-width:100%; opacity: 0.7; margin-right:0px" /></a></span>
             </div>
                         
             <div id="vu" class="off"></div>
@@ -480,23 +480,54 @@ $(document).ready(function() {
                String(m).padStart(2,"0")+":" +
                String(s).padStart(2,"0");
     }
-
+    
     function toggleEqualizers(play) {
-        const left = document.getElementById("vu");
-        const right = document.getElementById("vu-again");
-        const baseURL = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/vu-gif-on-air.gif";
-        if (play) {
-            const cacheBuster = Date.now();
-            const gifURL = `${baseURL}?v=${cacheBuster}`;
-            if (left) left.style.backgroundImage = `url("${gifURL}")`;
-            if (right) right.style.backgroundImage = `url("${gifURL}")`;
-        } else {
-            if (left) left.style.removeProperty("background-image");
-            if (right) right.style.removeProperty("background-image");
-        }
-        if (left) left.classList.toggle("off", !play);
-        if (right) right.classList.toggle("off", !play);
+    const left = document.getElementById("vu");
+    const right = document.getElementById("vu-again");
+
+    // URLs des deux SVG
+    const svg1 = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/vu-svg-on-air_1.svg";
+    const svg2 = "https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/vu-svg-on-air_2.svg";
+
+    // Stocker l’intervalle pour pouvoir l’arrêter
+    if (!toggleEqualizers.interval) {
+        toggleEqualizers.interval = null;
     }
+
+    if (play) {
+        let current = 1; // commence par svg1
+        // fonction qui alterne
+        const switchSVG = () => {
+            const url = current === 1 ? svg1 : svg2;
+            if (left) left.style.backgroundImage = `url("${url}")`;
+            if (right) right.style.backgroundImage = `url("${url}")`;
+            current = current === 1 ? 2 : 1;
+        };
+
+        // première apparition immédiate
+        switchSVG();
+
+        // alterner toutes les 1500ms (1.5s, tu peux ajuster)
+        toggleEqualizers.interval = setInterval(switchSVG, 1500);
+
+        if (left) left.classList.remove("off");
+        if (right) right.classList.remove("off");
+    } else {
+        // stop lecture → nettoyer
+        if (toggleEqualizers.interval) {
+            clearInterval(toggleEqualizers.interval);
+            toggleEqualizers.interval = null;
+        }
+        if (left) {
+            left.style.removeProperty("background-image");
+            left.classList.add("off");
+        }
+        if (right) {
+            right.style.removeProperty("background-image");
+            right.classList.add("off");
+        }
+    }
+}
 
     // -------------------
     // Play/Stop button
