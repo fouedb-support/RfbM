@@ -32,28 +32,44 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,700&display=swap">
     <link rel="stylesheet" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/base-round-trip-rfbm.css?4.6.12">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-
-    <!-- Scripts (Order preserved) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/jquery.jplayer292ed.min.js" id="jpjs"></script>
-    <script src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/modernizr-custom.js"></script>
-
+    
     <!-- Global variables -->
     <script>
-    page = 0; lang_text = {}; Chrome = 138; iPadOS = 0; cfg_id = "";
-    function minadw() { return 985 }
+    // Centralized object
+    window.config = {
+      page: 0,
+      lang_text: {},
+      Chrome: 138,
+      iPadOS: 0,
+      cfg_id: "",
+      minadw: () => 985
+    };
+
+    // Compatibility with legacy code that uses global variables
+    window.page = window.config.page;
+    window.lang_text = window.config.lang_text;
+    window.Chrome = window.config.Chrome;
+    window.iPadOS = window.config.iPadOS;
+    window.cfg_id = window.config.cfg_id;
+    window.minadw = window.config.minadw;
     </script>
+    
+    <!-- Scripts (Order preserved) -->
+    <script module src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script defer src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/jquery.jplayer292ed.min.js" id="jpjs"></script>
+    <script defer src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/modernizr-custom.js"></script>
 
     <!-- Main script -->
-    <script src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/site.4.6.12.js"></script>
+    <script module src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/site.4.6.12.js"></script>    
+    <script defer src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/scripts-round-trip-rfbm-aac.js"></script>
+    <script module src='https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/viblast.0.0.62.js'></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8GJ6SY3VC"></script>
     
 <style>
 .header img { margin-top: -14px; max-height:52px }
 body.page,
 body.page .container::before { background-color: #e0e0e0 }
 </style>
-
-<script src='https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/viblast.0.0.62.js'></script>
 
 </head>
 
@@ -119,6 +135,7 @@ body.page .container::before { background-color: #e0e0e0 }
                     <i class="fas icon last-played-open fas fa-list-ul"><span class="tooltip">Last Played</span></i>
                     <i class="fas icon time-date-open fas fa-history" onclick="toggleTimePanel()"><span class="tooltip">Time &amp; Date</span></i>
                     <i class="fas icon mute" id="muteb"><span id="mutetxt">&#x1F50A;</span><span class="tooltip">Mute</span></i>
+                    
                     
             <div id="volumediv">
             <div id="volume-control">
@@ -301,10 +318,6 @@ body.page .container::before { background-color: #e0e0e0 }
                
             </div>
             </div>
-                  
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8GJ6SY3VC"></script>
-
-<script src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/scripts-round-trip-rfbm-aac.js" defer></script>
 
 </body>
 </html>
