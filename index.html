@@ -11,14 +11,14 @@
     <link rel="shortcut icon" href="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/favicon.ico" type="image/x-icon">
 
     <!-- SEO -->
-    <meta name="description" content="Radio fouedb Music Webplayer">
+    <meta name="description" content="Radio Music Webplayer">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Radio fouedb Music">
+    <meta property="og:title" content="Radio Music">
     <meta property="og:image" content="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/rfbm-logo.gif">
     <meta property="og:description" content="Web player">
     <meta property="og:type" content="music.radio_station">
-    <meta property="og:url" content="https://fouedb-support.github.io/RfbM?l=">
+    <meta property="og:url" content="https://player.live365.com/a82574?l=">
 
     <!-- Preconnection and DNS Prefetch to speed up -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     
     <!-- Scripts (Order preserved) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script defer src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/jquery.jplayer292ed.min.js" id="jpjs"></script>
     <script defer src="https://radiofouedbmusic.weebly.com/uploads/2/7/3/9/27392993/modernizr-custom.js"></script>
     
@@ -96,17 +96,8 @@ body.page .container::before { background-color: #e0e0e0 }
             <div id="jpdivaac" class="jp-jplayer"></div>
             <div id="jw1" class="jp-jplayer"></div>
             <div class="playerbg themebg" style=""></div>
-                        
+                <button id="autoHideToggle" class="auto-hide-btn active"></button>        
             <div class="player">
-                        
-            <input type="checkbox" id="modeToggle" class="mode-toggle-checkbox" />
-
-            <div class="player-border">
-                    <label for="modeToggle" class="mode-toggle" id="modeText">
-                    <span class="text-appearing">appearing</span>
-                    <span class="text-masked">masked</span>
-                    </label>
-            </div>
             
             <div class="player-ui">
                                                           
@@ -139,8 +130,7 @@ body.page .container::before { background-color: #e0e0e0 }
                     <i class="fas icon last-played-open fas fa-list-ul"><span class="tooltip">Last Played</span></i>
                     <i class="fas icon time-date-open fas fa-history" onclick="toggleTimePanel()"><span class="tooltip">Time &amp; Date</span></i>
                     <i class="fas icon mute" id="muteb"><span id="mutetxt">&#x1F50A;</span><span class="tooltip">Mute</span></i>
-                    
-                    
+                                       
             <div id="volumediv">
             <div id="volume-control">
             <div id="volume-fill"></div>
@@ -284,40 +274,6 @@ body.page .container::before { background-color: #e0e0e0 }
                     <i class="close">&#x2715;</i>
             <section class="overlay-content" id="extra-ovl"></section>            
             </div>            
-            </div>
-            
-            <div align="center" class="player-border-bottom">
-            <div class="marquee-container">
-            <svg width="95%" height="30" viewBox="0 0 1000 60" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-            <linearGradient id="gradientText" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="orange" />
-                <stop offset="20%" stop-color="cyan" />
-                <stop offset="40%" stop-color="yellow" />
-                <stop offset="60%" stop-color="lime" />
-                <stop offset="80%" stop-color="white" />
-                <stop offset="100%" stop-color="gold" />
-            </linearGradient>
-            </defs>
-            <text 
-                x="1000"
-                y="15" 
-                dominant-baseline="middle"
-                font-size="clamp(6px, 1vw + 5px, 23px)" 
-                font-weight="bold" 
-                fill="url(#gradientText)">
-            Welcome To "Radio fouedb Music". "RfbM" Broadcasts the best songs and instrumental music, 
-            24/24 hours and 7/7 days. Non-stop Music, Enjoy. WebSites: "https://radiofouedbmusic.weebly.com" all country, "https://live365.com/station/Radio-fouedb-Music-a82574" United States-Canada-United Kingdom-Mexico, RfbM-Player: "https://fouedb-support.github.io/RfbM" & "https://fouedb-support.github.io/RfbM-2".
-            <animateTransform 
-                attributeName="transform"
-                type="translate"
-                from="0 0" 
-                to="-3000 0"
-                dur="60s"
-                repeatCount="indefinite"/>
-            </text>
-            </svg>
-            </div>
             </div>
                
             </div>
